@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane fx:controller="com.myproject.controller.TelaInicialController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="749.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="btnFechar" layoutX="646.0" layoutY="443.0" mnemonicParsing="false" text="Fechar" onAction="#fecharAplicacao"/>
+      <Button fx:id="btnAlunoClass" layoutX="279.0" layoutY="106.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="191.0" text="Aluno" onAction="#openAluno"/>
+      <Button fx:id="btnAnimalClass" layoutX="279.0" layoutY="150.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="191.0" text="Animal" onAction="#openAnimal"/>
+      <Button fx:id="btnArvoreClass" layoutX="279.0" layoutY="194.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="191.0" text="Arvore" onAction="#openArvore"/>
+      <Button fx:id="btnBicicletaClass" layoutX="279.0" layoutY="242.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="191.0" text="Bicicleta" onAction="#openBicicleta"/>
+      <Button fx:id="btnCarroClass" layoutX="279.0" layoutY="288.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="191.0" text="Carro" onAction="#openCarro"/>
+   </children>
+</AnchorPane>
