@@ -10,8 +10,9 @@ public class Carro {
     private int consumo;
     private int capacidadeTanque;
     private int nivelCombustivel;
+    private String image;
 
-    public Carro(String modelo, String marca, int kmRodado, int consumo, int capacidadeTanque, int nivelCombustivel) {
+    public Carro(String modelo, String marca, int kmRodado, int consumo, int capacidadeTanque, int nivelCombustivel, String image) {
         this.id = UUID.randomUUID().toString();
         this.modelo = modelo;
         this.marca = marca;
@@ -19,6 +20,7 @@ public class Carro {
         this.consumo = consumo;
         this.capacidadeTanque = capacidadeTanque;
         this.nivelCombustivel = nivelCombustivel;
+        this.image = image;
     }
 
     public void exibirInformacoes() {
@@ -39,16 +41,8 @@ public class Carro {
         return marca;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
     public String getModelo() {
         return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
     }
 
     public int getKmRodado() {
@@ -63,16 +57,8 @@ public class Carro {
         return consumo;
     }
 
-    public void setConsumo(int consumo) {
-        this.consumo = consumo;
-    }
-
     public int getCapacidadeTanque() {
         return capacidadeTanque;
-    }
-
-    public void setCapacidadeTanque(int capacidadeTanque) {
-        this.capacidadeTanque = capacidadeTanque;
     }
 
     public int getNivelCombustivel() {
@@ -82,6 +68,11 @@ public class Carro {
     public void setNivelCombustivel(int nivelCombustivel) {
         this.nivelCombustivel = nivelCombustivel;
     }
+
+    public String getImage() {
+        return image;
+    }
+
 
     @Override
     public String toString() {

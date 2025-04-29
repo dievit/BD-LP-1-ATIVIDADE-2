@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -20,5 +21,6 @@
       <Label layoutX="341.0" layoutY="357.0" text="Combustível em litros" />
       <Button fx:id="btnViajar" layoutX="697.0" layoutY="427.0" mnemonicParsing="false" onAction="#setBtnViajar" prefHeight="31.0" prefWidth="102.0" text="Viajar" />
       <Button fx:id="btnAutonomia" layoutX="466.0" layoutY="235.0" mnemonicParsing="false" onAction="#exibirAutonomia" prefHeight="31.0" prefWidth="102.0" text="Autonomia" />
+      <ImageView fx:id="imagePanel" fitHeight="254.0" fitWidth="450.0" layoutX="27.0" layoutY="419.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
