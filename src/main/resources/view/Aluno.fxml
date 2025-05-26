@@ -6,22 +6,32 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.AlunoController">
-   <children>
-      <Button fx:id="exibirInfo" layoutX="40.0" layoutY="326.0" mnemonicParsing="false" onAction="#exibirInfo" prefHeight="31.0" prefWidth="98.0" text="Exibir info" />
-      <Button fx:id="fazerProva" layoutX="40.0" layoutY="261.0" mnemonicParsing="false" onAction="#fazerProva" text="Fazer Prova" />
-      <Button fx:id="btnSalvar" layoutX="379.0" layoutY="326.0" mnemonicParsing="false" onAction="#salvarAluno" text="Salvar Aluno" />
-      <TextField fx:id="txtEstudou" layoutX="113.0" layoutY="73.0" />
-      <TextField fx:id="txtFezProva" layoutX="113.0" layoutY="118.0" />
-      <TextField fx:id="txtNome" layoutX="113.0" layoutY="28.0" />
-      <TextField fx:id="txtMatricula" layoutX="113.0" layoutY="208.0" />
-      <TextField fx:id="txtCurso" layoutX="113.0" layoutY="163.0" />
-      <Label layoutX="40.0" layoutY="33.0" text="Nome:" />
-      <Label layoutX="40.0" layoutY="214.0" text="Estudou:" />
-      <Label layoutX="40.0" layoutY="168.0" text="Fez prova:" />
-      <TextArea fx:id="txtResultado" editable="false" layoutX="313.0" layoutY="27.0" prefHeight="140.0" prefWidth="273.0" />
-      <Button fx:id="btnVoltar" layoutX="497.0" layoutY="326.0" mnemonicParsing="false" onAction="#fecharAplicacao" text="Voltar" />
-      <Label layoutX="40.0" layoutY="78.0" text="Matrícula:" />
-      <Label layoutX="40.0" layoutY="122.0" text="Curso:" />
-   </children>
+<AnchorPane prefHeight="761.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.myproject.controller.AlunoController">
+    <children>
+        <Button fx:id="listarAlunos" layoutX="249.0" layoutY="181.0" mnemonicParsing="false"
+                onAction="#listarAlunosAtivos" prefHeight="31.0" prefWidth="160.0" text="Listar Alunos"/>
+        <Button fx:id="deletarAluno" layoutX="38.0" layoutY="181.0" mnemonicParsing="false" onAction="#desabilitarAluno"
+                prefHeight="31.0" prefWidth="150.0" text="Deletar Aluno"/>
+        <Button fx:id="salvarAluno" layoutX="38.0" layoutY="226.0" mnemonicParsing="false" onAction="#salvarAluno"
+                prefHeight="31.0" prefWidth="150.0" text="Salvar Aluno"/>
+        <Label layoutX="40.0" layoutY="33.0" text="Nome:"/>
+        <TextField fx:id="txtNome" layoutX="113.0" layoutY="28.0" prefHeight="31.0" prefWidth="339.0"/>
+        <Label layoutX="40.0" layoutY="78.0" text="Matrícula:"/>
+        <TextField fx:id="txtMatricula" layoutX="113.0" layoutY="73.0" prefHeight="31.0" prefWidth="339.0"/>
+        <Label layoutX="40.0" layoutY="122.0" text="Curso:"/>
+        <TextField fx:id="txtCurso" layoutX="113.0" layoutY="118.0" prefHeight="31.0" prefWidth="339.0"/>
+        <TextArea fx:id="txtResultado" editable="false" layoutX="673.0" layoutY="23.0" prefHeight="669.0"
+                  prefWidth="463.0"/>
+        <Button fx:id="btnVoltar" layoutX="1076.0" layoutY="716.0" mnemonicParsing="false" onAction="#fecharAplicacao"
+                text="Voltar"/>
+        <Button fx:id="buscarAluno" layoutX="470.0" layoutY="28.0" mnemonicParsing="false"
+                onAction="#listarAlunosAtivos" prefHeight="31.0" prefWidth="116.0" text="Buscar Aluno"/>
+        <Button fx:id="buscarAluno1" layoutX="38.0" layoutY="269.0" mnemonicParsing="false" onAction="#updateAluno"
+                prefHeight="31.0" prefWidth="150.0" text="Editar aluno"/>
+        <Button fx:id="btnReativarMatricula" layoutX="38.0" layoutY="313.0" mnemonicParsing="false"
+                onAction="#reativarMatricula" prefHeight="31.0" prefWidth="150.0" text="Reativar Matrícula"/>
+        <Button fx:id="btnListarInativos" layoutX="249.0" layoutY="226.0" mnemonicParsing="false"
+                onAction="#listarAlunosInativos" text="Listar Alunos Inativos"/>
+    </children>
 </AnchorPane>

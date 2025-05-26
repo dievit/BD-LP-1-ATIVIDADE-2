@@ -15,204 +15,270 @@ import javafx.stage.Stage;
 
 
 import javafx.event.ActionEvent;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.ResourceBundle;
 
-    public class AlunoController {
+public class AlunoController {
 
 
-        @FXML
-        void fecharAplicacao(ActionEvent event) {
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.close();
-        }
+    @FXML
+    void fecharAplicacao(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
 
+    @FXML
+    private ResourceBundle resources;
 
-        @FXML
-        private ResourceBundle resources;
+    @FXML
+    private URL location;
 
-        @FXML
-        private URL location;
+    @FXML
+    private TextField txtNome;
 
+    @FXML
+    private TextField txtEstudou;
 
-        @FXML
-        private TextField txtNome;
+    @FXML
+    private TextField txtFezProva;
 
-        @FXML
-        private TextField txtEstudou;
+    @FXML
+    private Button btnVoltar;
 
-        @FXML
-        private TextField txtFezProva;
+    @FXML
+    private TextField txtMatricula;
 
-        @FXML
-        private Button btnVoltar;
+    @FXML
+    private TextField txtCurso;
 
-        @FXML
-        private TextField txtMatricula;
+    @FXML
+    private TextArea txtResultado;
 
-        @FXML
-        private TextField txtCurso;
+    @FXML
+    private Button btnReativarMatricula;
 
-        @FXML
-        private TextArea txtResultado;
+    @FXML
+    private Button btnSalvar;
 
+    @FXML
+    private void salvarAluno() {
+        String nome = txtNome.getText();
+        String matricula = txtMatricula.getText();
+        String curso = txtCurso.getText();
 
-        private String nome;
-        private boolean estudou;
-        private boolean fezProva;
+        Connection connection = null;
+        try {
+            connection = ConexaoDB.getConnection();
+            connection.setAutoCommit(true);
+            Aluno aluno = new Aluno(nome, matricula, curso);
+            AlunoDAO alunoDAO = new AlunoDAO(connection);
+            alunoDAO.inserirAluno(aluno);
 
-        private void atualizarVariaveis() {
-            nome = txtNome.getText();
-            estudou = txtEstudou.getText().equalsIgnoreCase("sim");
-            fezProva = txtFezProva.getText().equalsIgnoreCase("sim");
-        }
-
-        @FXML
-        private void exibirInfo() {
-            atualizarVariaveis(); // Pega os valores digitados
-
-            String resultado = "Aluno: " + nome +
-                    "\nEstudou: " + (estudou ? "Sim" : "Não") +
-                    "\nFez prova: " + (fezProva ? "Sim" : "Não");
-            txtResultado.setText(resultado);
-        }
-
-
-        @FXML
-        private void fazerProva() {
-            atualizarVariaveis(); // Atualiza as variáveis de instância com os valores mais recentes
-
-            if (estudou && fezProva) {
-                txtResultado.setText(nome + " foi bem na prova!");
-            } else if (estudou && !fezProva) {
-                txtResultado.setText(nome + " reprovou, pois não fez a prova.");
-            } else if (!estudou && fezProva) {
-                txtResultado.setText(nome +  " eve dificuldades na prova.");
-            } else {
-                txtResultado.setText(nome + " não estudou nem fez a prova.");
-            }
-
-        }
-        @FXML
-        void voltarTelaInicial(ActionEvent event) throws IOException {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/TelaInicial.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }
-
-        @FXML
-        private Button btnSalvar;
-
-        @FXML
-        private void salvarAluno() {
-            String nome = txtNome.getText();
-            String matrícula = txtMatricula.getText();
-            String curso = txtCurso.getText();
-
-            Connection connection = null;
-            try {
-                connection = ConexaoDB.getConnection();
-                Aluno aluno = new Aluno(nome, matrícula, curso);
-                AlunoDAO alunoDAO = new AlunoDAO(connection);
-                alunoDAO.inserirAluno(aluno);
-                txtResultado.setText("Aluno salvo com sucesso!");
-            } catch (Exception e) {
-                e.printStackTrace();
-                txtResultado.setText("Erro ao salvar aluno: " + e.getMessage());
-            } finally {
-                if (connection != null) {
-                    try {
-                        connection.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            limparCampos();
+            txtResultado.setText("Aluno salvo com sucesso! ID: ");
+        } catch (Exception e) {
+            e.printStackTrace();
+            txtResultado.setText("Erro ao salvar aluno. Veja o console para detalhes.");
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
 
-        }
-        @FXML
-        private void removerAluno() {
-            String matricula = txtMatricula.getText();
 
-            Connection connection = null;
-            try {
-                connection = ConexaoDB.getConnection();
-                Aluno aluno = new Aluno(null, matricula, null);
-                AlunoDAO alunoDAO = new AlunoDAO(connection);
-                alunoDAO.removerAluno(aluno);
-                txtResultado.setText("Aluno removido com sucesso!");
-            } catch (Exception e) {
-                e.printStackTrace();
-                txtResultado.setText("Erro ao remover aluno: " + e.getMessage());
-            } finally {
-                if (connection != null) {
-                    try {
-                        connection.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
         }
 
-        @FXML
-        private void editarAluno() {
-            String nome = txtNome.getText();
-            String matricula = txtMatricula.getText();
-            String curso = txtCurso.getText();
+    }
 
-            Connection connection = null;
-            try {
-                connection = ConexaoDB.getConnection();
-                Aluno aluno = new Aluno(nome, matricula, curso);
-                AlunoDAO alunoDAO = new AlunoDAO(connection);
-                alunoDAO.editarAluno(aluno);
-                txtResultado.setText("Aluno editado com sucesso!");
-            } catch (Exception e) {
-                e.printStackTrace();
-                txtResultado.setText("Erro ao editar aluno: " + e.getMessage());
-            } finally {
-                if (connection != null) {
-                    try {
-                        connection.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+    @FXML
+    private void desabilitarAluno() {
+        String matricula = txtMatricula.getText();
+        if (matricula.isEmpty()) {
+            txtResultado.setText("Digite a matrícula do aluno.");
+            return;
         }
 
-        @FXML
-        private void buscarAluno() {
-            String matricula = txtMatricula.getText();
+        Connection connection = null;
+        try {
+            connection = ConexaoDB.getConnection();
+            Aluno aluno = new Aluno(null, matricula, null);
+            AlunoDAO alunoDAO = new AlunoDAO(connection);
+            alunoDAO.removerAluno(aluno);
+            txtResultado.setText("Aluno removido com sucesso!");
 
-            Connection connection = null;
-            try {
-                connection = ConexaoDB.getConnection();
-                AlunoDAO alunoDAO = new AlunoDAO(connection);
-                Aluno aluno = alunoDAO.buscarAluno(matricula);
-                if (aluno != null) {
-                    txtNome.setText(aluno.getNome());
-                    txtCurso.setText(aluno.getCurso());
-                    txtResultado.setText("Aluno encontrado!");
-                } else {
-                    txtResultado.setText("Aluno não encontrado.");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                txtResultado.setText("Erro ao buscar aluno: " + e.getMessage());
-            } finally {
-                if (connection != null) {
-                    try {
-                        connection.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            limparCampos();
+        } catch (Exception e) {
+            e.printStackTrace();
+            txtResultado.setText("Erro ao remover aluno: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
     }
+
+    @FXML
+    private void buscarAluno() {
+        String matricula = txtMatricula.getText();
+
+        Connection connection = null;
+        try {
+            connection = ConexaoDB.getConnection();
+            AlunoDAO alunoDAO = new AlunoDAO(connection);
+            Aluno aluno = alunoDAO.buscarAluno(matricula);
+
+            limparCampos();
+            if (aluno != null) {
+                txtNome.setText(aluno.getNome());
+                txtCurso.setText(aluno.getCurso());
+                txtResultado.setText("Aluno encontrado!");
+            } else {
+                txtResultado.setText("Aluno não encontrado.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            txtResultado.setText("Erro ao buscar aluno: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    @FXML
+    private void reativarMatricula() {
+        String matricula = txtMatricula.getText();
+        if (matricula.isEmpty()) {
+            txtResultado.setText("Digite a matrícula do aluno.");
+            return;
+        }
+
+        Connection connection = null;
+        try {
+            connection = ConexaoDB.getConnection();
+            Aluno aluno = new Aluno(null, matricula, null);
+            AlunoDAO alunoDAO = new AlunoDAO(connection);
+            alunoDAO.reativarMatricula(aluno);
+            txtResultado.setText("Matrícula reativada com sucesso!");
+
+            limparCampos();
+        } catch (Exception e) {
+            e.printStackTrace();
+            txtResultado.setText("Erro ao reativar matrícula: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void listarAlunosInativos() {
+        Connection conn = null;
+        try {
+            conn = ConexaoDB.getConnection();
+            AlunoDAO alunoDAO = new AlunoDAO(conn);
+            StringBuilder res = new StringBuilder("Alunos Inativos:\n");
+
+            for (Aluno aluno : alunoDAO.listarMatriculasInativas()) {
+                res.append("Matrícula: " + aluno.getMatricula() +
+                        " Nome: " + aluno.getNome() +
+                        " Curso: " + aluno.getCurso()).append("\n");
+            }
+            txtResultado.setText(res.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            txtResultado.setText("Erro ao listar alunos inativos: " + e.getMessage());
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void listarAlunosAtivos() {
+        Connection connection = null;
+        try {
+            connection = ConexaoDB.getConnection();
+            AlunoDAO alunoDAO = new AlunoDAO(connection);
+            StringBuilder resultado = new StringBuilder("Alunos Ativos:\n");
+
+            for (Aluno aluno : alunoDAO.listarAlunosAtivos()) {
+                resultado.append("Matrícula: " + aluno.getMatricula() +
+                        " Nome: " + aluno.getNome() +
+                        " Curso: " + aluno.getCurso()).append("\n");
+            }
+            txtResultado.setText(resultado.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            txtResultado.setText("Erro ao listar alunos: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void updateAluno() {
+        String nome = txtNome.getText();
+        String matricula = txtMatricula.getText();
+        String curso = txtCurso.getText();
+
+        Connection connection = null;
+        try {
+            connection = ConexaoDB.getConnection();
+            Aluno aluno = new Aluno(nome, matricula, curso);
+            AlunoDAO alunoDAO = new AlunoDAO(connection);
+            alunoDAO.atualizarAluno(aluno);
+
+            limparCampos();
+            txtResultado.setText("Aluno atualizado com sucesso!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            txtResultado.setText("Erro ao atualizar aluno: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void limparCampos() {
+        txtNome.clear();
+        txtMatricula.clear();
+        txtCurso.clear();
+    }
+}

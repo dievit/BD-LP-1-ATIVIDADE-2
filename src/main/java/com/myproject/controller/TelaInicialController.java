@@ -1,9 +1,11 @@
 package com.myproject.controller;
 
 import javafx.event.ActionEvent;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -80,9 +82,27 @@ public class TelaInicialController {
     void openAluno() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Aluno.fxml"));
         Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.show();
+
+        Stage atual = (Stage) btnAlunoClass.getScene().getWindow();
+        atual.close();
+
+        newStage.setOnHidden(e -> {
+            try {
+                FXMLLoader loaderInicio = new FXMLLoader(getClass().getResource("/view/TelaInicial.fxml"));
+                Parent rootInicio = loaderInicio.load();
+
+                Stage stageInicio = new Stage();
+                stageInicio.setTitle("Tela Inicial");
+                stageInicio.setScene(new Scene(rootInicio));
+                stageInicio.show();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 
     @FXML

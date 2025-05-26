@@ -1,27 +1,31 @@
 package com.myproject.model;
 
-import java.time.LocalDate;
 import java.util.Scanner;
-import java.util.UUID;
+
 
 public class Aluno {
-    private String id;
-    public String nome;
-    public String matricula;
-    public String curso;
+    private Integer id;
+    private String nome;
+    private String matricula;
+    private String curso;
 
     public Aluno(String nome, String matricula, String curso) {
-        this.id = UUID.randomUUID().toString();
         this.nome = nome;
         this.matricula = matricula;
         this.curso = curso;
     }
 
-    public static final Aluno Joao = new Aluno("João da Silva", "123456", "Engenharia de Software");
-    public static final Aluno Maria = new Aluno("Maria Oliveira", "654321", "Ciência da Computação");
+    public Aluno() {
 
-    public String getId() {
+    }
+
+
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -40,7 +44,7 @@ public class Aluno {
         this.matricula = matricula;
     }
 
-    public String getCurso(){
+    public String getCurso() {
         return curso;
     }
 
@@ -85,5 +89,7 @@ public class Aluno {
             return ausente;
         }
     }
+
+
 }
 
