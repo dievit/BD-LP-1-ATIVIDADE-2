@@ -146,11 +146,11 @@ public class AlunoDAO {
 
     public Aluno buscarAluno(String matricula) {
         String sql = "SELECT * FROM aluno WHERE matricula = ?";
+        Aluno aluno = null;
 
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            Aluno aluno = new Aluno();
             stmt.setString(1, matricula);
             ResultSet rs = stmt.executeQuery();
 
@@ -168,7 +168,7 @@ public class AlunoDAO {
         } catch (SQLException e) {
             System.err.println("Erro ao buscar aluno: " + e.getMessage());
         }
-        return null;
+        return aluno;
     }
 
     public void atualizarAluno(Aluno aluno) {

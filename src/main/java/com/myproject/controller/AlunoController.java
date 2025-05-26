@@ -132,6 +132,10 @@ public class AlunoController {
         String matricula = txtMatricula.getText();
 
         Connection connection = null;
+        if (matricula.isEmpty()) {
+            txtResultado.setText("Digite a matrícula do aluno.");
+            return;
+        }
         try {
             connection = ConexaoDB.getConnection();
             AlunoDAO alunoDAO = new AlunoDAO(connection);
@@ -139,6 +143,7 @@ public class AlunoController {
 
             limparCampos();
             if (aluno != null) {
+                txtMatricula.setText(aluno.getMatricula());
                 txtNome.setText(aluno.getNome());
                 txtCurso.setText(aluno.getCurso());
                 txtResultado.setText("Aluno encontrado!");
