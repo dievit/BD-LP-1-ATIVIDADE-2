@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AlunoDAO {
 
-    public boolean matriculaExiste(String matricula) {
+    public static boolean matriculaExiste(String matricula) {
         String sql = "SELECT COUNT(*) FROM aluno WHERE matricula = ?";
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -62,6 +62,10 @@ public class AlunoDAO {
     public void removerAluno(Aluno aluno) {
         String sql = "UPDATE aluno SET removido = 1 WHERE matricula = ?";
 
+        if (!matriculaExiste(aluno.getMatricula())) {
+            System.out.println("Matrícula não encontrada!");
+            return;
+        }
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -81,7 +85,10 @@ public class AlunoDAO {
 
     public void reativarMatricula(Aluno aluno) {
         String sql = "UPDATE aluno SET removido = 0 WHERE matricula = ?";
-
+        if (!matriculaExiste(aluno.getMatricula())) {
+            System.out.println("Matrícula não encontrada!");
+            return;
+        }
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -147,6 +154,11 @@ public class AlunoDAO {
     public Aluno buscarAluno(String matricula) {
         String sql = "SELECT * FROM aluno WHERE matricula = ?";
         Aluno aluno = null;
+
+        if (!matriculaExiste(matricula)) {
+            System.out.println("Matrícula não encontrada!");
+            return null;
+        }
 
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

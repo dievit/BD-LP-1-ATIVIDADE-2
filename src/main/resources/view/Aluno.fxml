@@ -6,9 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="761.0" prefWidth="1172.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.AlunoController">
+<AnchorPane prefHeight="565.0" prefWidth="1013.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.AlunoController">
     <children>
-        <Button fx:id="listarAlunos" layoutX="249.0" layoutY="181.0" mnemonicParsing="false" onAction="#listarAlunosAtivos" prefHeight="31.0" prefWidth="160.0" text="Listar Alunos" />
+        <Button fx:id="listarAlunos" layoutX="249.0" layoutY="181.0" mnemonicParsing="false" onAction="#listarAlunosAtivos" prefHeight="31.0" prefWidth="160.0" text="Listar Alunos Ativos" />
         <Button fx:id="deletarAluno" layoutX="38.0" layoutY="181.0" mnemonicParsing="false" onAction="#desabilitarAluno" prefHeight="31.0" prefWidth="150.0" text="Deletar Aluno" />
         <Button fx:id="salvarAluno" layoutX="38.0" layoutY="226.0" mnemonicParsing="false" onAction="#salvarAluno" prefHeight="31.0" prefWidth="150.0" text="Salvar Aluno" />
         <Label layoutX="40.0" layoutY="33.0" text="Nome:" />
@@ -17,11 +17,12 @@
         <TextField fx:id="txtMatricula" layoutX="113.0" layoutY="73.0" prefHeight="31.0" prefWidth="339.0" />
         <Label layoutX="40.0" layoutY="122.0" text="Curso:" />
         <TextField fx:id="txtCurso" layoutX="113.0" layoutY="118.0" prefHeight="31.0" prefWidth="339.0" />
-        <TextArea fx:id="txtResultado" editable="false" layoutX="673.0" layoutY="23.0" prefHeight="669.0" prefWidth="463.0" />
-        <Button fx:id="btnVoltar" layoutX="1076.0" layoutY="716.0" mnemonicParsing="false" onAction="#fecharAplicacao" text="Voltar" />
+        <TextArea fx:id="txtResultado" editable="false" layoutX="601.0" layoutY="25.0" prefHeight="468.0" prefWidth="387.0" />
+        <Button fx:id="btnVoltar" layoutX="928.0" layoutY="522.0" mnemonicParsing="false" onAction="#fecharAplicacao" text="Voltar" />
         <Button fx:id="buscarAluno" layoutX="470.0" layoutY="28.0" mnemonicParsing="false" onAction="#buscarAluno" prefHeight="31.0" prefWidth="116.0" text="Buscar Aluno" />
         <Button fx:id="buscarAluno1" layoutX="38.0" layoutY="269.0" mnemonicParsing="false" onAction="#updateAluno" prefHeight="31.0" prefWidth="150.0" text="Editar aluno" />
         <Button fx:id="btnReativarMatricula" layoutX="38.0" layoutY="313.0" mnemonicParsing="false" onAction="#reativarMatricula" prefHeight="31.0" prefWidth="150.0" text="Reativar Matrícula" />
         <Button fx:id="btnListarInativos" layoutX="249.0" layoutY="226.0" mnemonicParsing="false" onAction="#listarAlunosInativos" prefHeight="31.0" prefWidth="160.0" text="Listar Alunos Inativos" />
+      <Button fx:id="btnClear" layoutX="468.0" layoutY="117.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="31.0" prefWidth="116.0" text="Limpar" />
     </children>
 </AnchorPane>

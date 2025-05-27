@@ -69,6 +69,10 @@ public class AlunoController {
         String matricula = txtMatricula.getText();
         String curso = txtCurso.getText();
 
+        if(nome.isEmpty() || matricula.isEmpty() || curso.isEmpty()) {
+            txtResultado.setText("Preencha todos os campos.");
+            return;
+        }
         Connection connection = null;
         try {
             connection = ConexaoDB.getConnection();
@@ -90,17 +94,18 @@ public class AlunoController {
                     e.printStackTrace();
                 }
             }
-
-
         }
-
     }
 
     @FXML
     private void desabilitarAluno() {
         String matricula = txtMatricula.getText();
-        if (matricula.isEmpty()) {
-            txtResultado.setText("Digite a matrícula do aluno.");
+        if (!AlunoDAO.matriculaExiste(matricula)) {
+            txtResultado.setText("Matrícula não encontrada.");
+            return;
+        }
+        if(matricula.isEmpty()) {
+            txtResultado.setText("Digite a matrícula do aluno poder desativá-lo.");
             return;
         }
 
@@ -132,8 +137,13 @@ public class AlunoController {
         String matricula = txtMatricula.getText();
 
         Connection connection = null;
+
         if (matricula.isEmpty()) {
-            txtResultado.setText("Digite a matrícula do aluno.");
+            txtResultado.setText("Digite a matrícula do aluno, para buscar.");
+            return;
+        }
+        if (!AlunoDAO.matriculaExiste(matricula)) {
+            txtResultado.setText("Matrícula não encontrada.");
             return;
         }
         try {
@@ -168,8 +178,13 @@ public class AlunoController {
     @FXML
     private void reativarMatricula() {
         String matricula = txtMatricula.getText();
+
+        if (!AlunoDAO.matriculaExiste(matricula)) {
+            txtResultado.setText("Matrícula não encontrada.");
+            return;
+        }
         if (matricula.isEmpty()) {
-            txtResultado.setText("Digite a matrícula do aluno.");
+            txtResultado.setText("Digite a matrícula do aluno para reativá-lo.");
             return;
         }
 
@@ -205,10 +220,12 @@ public class AlunoController {
             StringBuilder res = new StringBuilder("Alunos Inativos:\n");
 
             for (Aluno aluno : alunoDAO.listarMatriculasInativas()) {
-                res.append("Matrícula: " + aluno.getMatricula() +
-                        " Nome: " + aluno.getNome() +
-                        " Curso: " + aluno.getCurso()).append("\n");
+                res.append("******************************************" + ("\n") +
+                        "Matrícula: " + aluno.getMatricula() + ("\n") +
+                        " Nome: " + aluno.getNome() + ("\n") +
+                        " Curso: " + aluno.getCurso() + ("\n"));
             }
+            limparCampos();
             txtResultado.setText(res.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -233,10 +250,12 @@ public class AlunoController {
             StringBuilder resultado = new StringBuilder("Alunos Ativos:\n");
 
             for (Aluno aluno : alunoDAO.listarAlunosAtivos()) {
-                resultado.append("Matrícula: " + aluno.getMatricula() +
-                        " Nome: " + aluno.getNome() +
-                        " Curso: " + aluno.getCurso()).append("\n");
+                resultado.append("******************************************" + ("\n") +
+                        "Matrícula: " + aluno.getMatricula() + ("\n") +
+                        " Nome: " + aluno.getNome() + ("\n") +
+                        " Curso: " + aluno.getCurso() + ("\n"));
             }
+            limparCampos();
             txtResultado.setText(resultado.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -258,6 +277,15 @@ public class AlunoController {
         String matricula = txtMatricula.getText();
         String curso = txtCurso.getText();
 
+        if (!AlunoDAO.matriculaExiste(matricula)) {
+            txtResultado.setText("Matrícula não cadastrada");
+            return;
+        }
+
+        if(nome.isEmpty() || matricula.isEmpty() || curso.isEmpty()) {
+            txtResultado.setText("Preencha todos os campos.");
+            return;
+        }
         Connection connection = null;
         try {
             connection = ConexaoDB.getConnection();
@@ -281,6 +309,7 @@ public class AlunoController {
         }
     }
 
+    @FXML
     private void limparCampos() {
         txtNome.clear();
         txtMatricula.clear();
