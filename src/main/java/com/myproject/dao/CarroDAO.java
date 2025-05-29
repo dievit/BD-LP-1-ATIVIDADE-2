@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CarroDAO {
 
@@ -16,6 +18,7 @@ public class CarroDAO {
         this.conn = connection;
     }
 
+    //metodo para verificar se a placa já existe no banco de dados
     public static boolean placaExiste(String placa) {
         String sql = "SELECT COUNT(*) FROM carro WHERE placa = ?";
         try (Connection conn = ConexaoDB.getConnection();
@@ -32,7 +35,7 @@ public class CarroDAO {
         }
         return false;
     }
-
+    //inicio metodos CRUD
     public void cadastrarCarro(Carro carro) {
         if (CarroDAO.placaExiste(carro.getPlaca())) {
             System.out.println("Placa já cadastrada");
@@ -145,5 +148,89 @@ public class CarroDAO {
             System.err.println("Erro ao atualizar veículo: " + e.getMessage());
         }
     }
+    //fim dos metodos CRUD
+
+    //inicio metodos para listagem de carros
+    public List<Carro> listarCarrosDisponiveis() {
+        List<Carro> carrosDisponiveis = new ArrayList<>();
+        String sql = "SELECT * FROM carro WHERE disponivel = 0";
+
+        try (Connection conn = ConexaoDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Carro carro = new Carro();
+                carro.setModelo(rs.getString("modelo"));
+                carro.setMarca(rs.getString("marca"));
+                carro.setPlaca(rs.getString("placa"));
+                carro.setKmRodado(rs.getInt("kmRodado"));
+                carro.setConsumo(rs.getInt("consumo"));
+                carro.setCapacidadeTanque(rs.getInt("capacidadeTanque"));
+                carro.setNivelCombustivel(rs.getInt("nivelCombustivel"));
+                carro.setImage(rs.getString("image"));
+
+                carrosDisponiveis.add(carro);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar veículos: " + e.getMessage());
+        }
+        return carrosDisponiveis;
+    }
+
+    public List<Carro> listarCarrosIndisponiveis() {
+        List<Carro> carrosIndisponiveis = new ArrayList<>();
+        String sql = "SELECT * FROM carro WHERE disponivel = 1";
+
+        try (Connection conn = ConexaoDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Carro carro = new Carro();
+                carro.setModelo(rs.getString("modelo"));
+                carro.setMarca(rs.getString("marca"));
+                carro.setPlaca(rs.getString("placa"));
+                carro.setKmRodado(rs.getInt("kmRodado"));
+                carro.setConsumo(rs.getInt("consumo"));
+                carro.setCapacidadeTanque(rs.getInt("capacidadeTanque"));
+                carro.setNivelCombustivel(rs.getInt("nivelCombustivel"));
+                carro.setImage(rs.getString("image"));
+
+                carrosIndisponiveis.add(carro);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar veículos indisponíveis: " + e.getMessage());
+        }
+        return carrosIndisponiveis;
+    }
+
+    public List<Carro> listarRemovidos() {
+        List<Carro> carrosRemovidos = new ArrayList<>();
+        String sql = "SELECT * FROM carro WHERE removido = 1";
+
+        try (Connection conn = ConexaoDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Carro carro = new Carro();
+                carro.setModelo(rs.getString("modelo"));
+                carro.setMarca(rs.getString("marca"));
+                carro.setPlaca(rs.getString("placa"));
+                carro.setKmRodado(rs.getInt("kmRodado"));
+                carro.setConsumo(rs.getInt("consumo"));
+                carro.setCapacidadeTanque(rs.getInt("capacidadeTanque"));
+                carro.setNivelCombustivel(rs.getInt("nivelCombustivel"));
+                carro.setImage(rs.getString("image"));
+
+                carrosRemovidos.add(carro);
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao listar veículos removidos: " + e.getMessage());
+        }
+        return carrosRemovidos;
+    }
+    //fim dos metodos para listagem de carros
 }
 
