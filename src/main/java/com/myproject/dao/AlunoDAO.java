@@ -13,6 +13,10 @@ import java.util.List;
 
 public class AlunoDAO {
 
+
+    public AlunoDAO(Connection connection) {
+    }
+
     public static boolean matriculaExiste(String matricula) {
         String sql = "SELECT COUNT(*) FROM aluno WHERE matricula = ?";
         try (Connection conn = ConexaoDB.getConnection();
@@ -28,9 +32,6 @@ public class AlunoDAO {
             System.err.println("Erro ao verificar matrícula: " + e.getMessage());
         }
         return false;
-    }
-
-    public AlunoDAO(Connection connection) {
     }
 
     public void inserirAluno(Aluno aluno) {
