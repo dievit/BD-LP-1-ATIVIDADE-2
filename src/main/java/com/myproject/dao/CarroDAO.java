@@ -156,9 +156,9 @@ public class CarroDAO {
     //fim dos metodos CRUD
 
     //inicio metodos para listagem de carros
-    public List<Carro> listarCarrosDisponiveis() {
+    public static List<Carro> listarCarrosDisponiveis() {
         List<Carro> carrosDisponiveis = new ArrayList<>();
-        String sql = "SELECT * FROM carro WHERE disponivel = 0";
+        String sql = "SELECT * FROM carro WHERE disponibilidade = 0";
 
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -169,10 +169,10 @@ public class CarroDAO {
                 carro.setModelo(rs.getString("modelo"));
                 carro.setMarca(rs.getString("marca"));
                 carro.setPlaca(rs.getString("placa"));
-                carro.setKmRodado(rs.getInt("kmRodado"));
+                carro.setKmRodado(rs.getInt("km_rodado"));
                 carro.setConsumo(rs.getInt("consumo"));
-                carro.setCapacidadeTanque(rs.getInt("capacidadeTanque"));
-                carro.setNivelCombustivel(rs.getInt("nivelCombustivel"));
+                carro.setCapacidadeTanque(rs.getInt("capacidade"));
+                carro.setNivelCombustivel(rs.getInt("nivel_combustivel"));
                 carro.setImage(rs.getString("image"));
 
                 carrosDisponiveis.add(carro);

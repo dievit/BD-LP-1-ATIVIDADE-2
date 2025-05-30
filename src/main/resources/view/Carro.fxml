@@ -14,9 +14,9 @@
         <items>
            <AnchorPane fx:id="menuPane" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" styleClass="menu-lateral">
                <children>
-                  <Button layoutX="25.0" layoutY="176.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Frota" />
-                  <Button layoutX="25.0" layoutY="251.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Motoristas" />
-                  <Button layoutX="25.0" layoutY="684.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Fechar" />
+                  <Button fx:id="btnToFrota" layoutX="25.0" layoutY="176.0" mnemonicParsing="false" onAction="#abrirFrota" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Frota" />
+                  <Button fx:id="btnToMotoristas" layoutX="25.0" layoutY="251.0" mnemonicParsing="false" onAction="#abrirMotoristas" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Motoristas" />
+                  <Button fx:id="btnClose" layoutX="25.0" layoutY="684.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Fechar" />
                </children>
             </AnchorPane>
           <AnchorPane fx:id="conteudoPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="painel-conteudo" />

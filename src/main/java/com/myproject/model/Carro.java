@@ -11,10 +11,11 @@ public class Carro {
     private int consumo;
     private int capacidadeTanque;
     private int nivelCombustivel;
+    private int disponibilidade;
     private String image;
 
     //construtor sem id
-    public Carro(String modelo, String marca, String placa, int kmRodado, int consumo, int capacidadeTanque, int nivelCombustivel, String image) {
+    public Carro(String modelo, String marca, String placa, int kmRodado, int consumo, int capacidadeTanque, int nivelCombustivel, int disponibilidade, String image) {
         this.modelo = modelo;
         this.marca = marca;
         this.placa = placa;
@@ -22,11 +23,12 @@ public class Carro {
         this.consumo = consumo;
         this.capacidadeTanque = capacidadeTanque;
         this.nivelCombustivel = nivelCombustivel;
+        this.disponibilidade = disponibilidade;
         this.image = image;
     }
 
     //construtor com id
-    public Carro(int id, String modelo, String marca, int kmRodado, int consumo, int capacidadeTanque, int nivelCombustivel, String image) {
+    public Carro(int id, String modelo, String marca, int kmRodado, int consumo, int capacidadeTanque, int nivelCombustivel, int disponibilidade, String image) {
         this.id = id;
         this.modelo = modelo;
         this.marca = marca;
@@ -34,6 +36,7 @@ public class Carro {
         this.consumo = consumo;
         this.capacidadeTanque = capacidadeTanque;
         this.nivelCombustivel = nivelCombustivel;
+        this.disponibilidade = disponibilidade;
         this.image = image;
     }
 
@@ -46,9 +49,26 @@ public class Carro {
         this.consumo = 0;
         this.capacidadeTanque = 0;
         this.nivelCombustivel = 0;
+        this.disponibilidade = 0; // 0 para disponível, 1 para em manutenção e 2 para em rota
         this.image = "";
     }
 
+    public int getDisponibilidade() {
+        return disponibilidade;
+    }
+
+    public void setDisponibilidade(int disponibilidade) {
+        this.disponibilidade = disponibilidade;
+    }
+
+    public String getStatus() {
+        return switch (this.disponibilidade) {
+            case 0 -> "Disponível";
+            case 1 -> "Em manutenção";
+            case 2 -> "Em rota";
+            default -> "Desconhecido";
+        };
+    }
 
     public int getId() {
         return id;
