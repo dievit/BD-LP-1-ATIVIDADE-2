@@ -1,0 +1,18 @@
+.button {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 50px;
+    -fx-cursor: hand;
+}
+.menu-lateral {
+    -fx-background-color: #FFA100; /* Laranja */
+    -fx-padding: 10;
+}
+
+.painel-conteudo {
+    -fx-background-color: white;
+    -fx-padding: 20;
+}

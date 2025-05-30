@@ -7,12 +7,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="694.0" prefWidth="1029.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.CarroController">
+<AnchorPane prefHeight="768.0" prefWidth="1366.0" stylesheets="@css/estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.CarroController">
    <children>
-      <ChoiceBox fx:id="comboChoice" layoutX="807.0" layoutY="43.0" prefHeight="31.0" prefWidth="200.0" />
-      <TextArea fx:id="textField" layoutX="549.0" layoutY="493.0" prefHeight="173.0" prefWidth="458.0" wrapText="true" />
-      <ImageView fx:id="imagePanel" fitHeight="254.0" fitWidth="450.0" layoutX="27.0" layoutY="419.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="218.0" layoutY="43.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" text="Cadastrar Veículo" />
-      <Button layoutX="42.0" layoutY="43.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="144.0" text="Editar Veículo" />
+      <SplitPane fx:id="splitPane" dividerPositions="0.2089442815249267" prefHeight="768.0" prefWidth="1366.0">
+
+        <items>
+           <AnchorPane fx:id="menuPane" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" styleClass="menu-lateral">
+               <children>
+                  <Button layoutX="25.0" layoutY="176.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Frota" />
+                  <Button layoutX="25.0" layoutY="251.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Motoristas" />
+                  <Button layoutX="25.0" layoutY="684.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Fechar" />
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="conteudoPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="painel-conteudo" />
+        </items>
+      </SplitPane>
    </children>
 </AnchorPane>

@@ -18,6 +18,10 @@ public class CarroDAO {
         this.conn = connection;
     }
 
+    public static boolean viagemAutorizada(Carro carro) {
+        return carro.getNivelCombustivel() == carro.getCapacidadeTanque();
+    }
+
     //metodo para verificar se a placa já existe no banco de dados
     public static boolean placaExiste(String placa) {
         String sql = "SELECT COUNT(*) FROM carro WHERE placa = ?";
@@ -35,6 +39,7 @@ public class CarroDAO {
         }
         return false;
     }
+
     //inicio metodos CRUD
     public void cadastrarCarro(Carro carro) {
         if (CarroDAO.placaExiste(carro.getPlaca())) {
