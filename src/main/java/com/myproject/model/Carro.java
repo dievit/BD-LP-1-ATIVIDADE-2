@@ -8,16 +8,18 @@ public class Carro {
     private String modelo;
     private String placa;
     private int kmRodado;
-    private int consumo;
+    private double consumo;
     private int capacidadeTanque;
     private int nivelCombustivel;
     private int disponibilidade;
+    private String tipo; // Tipo do carro (pode ser SUV, Sedan, Hatch, etc.)
     private String image;
 
     //construtor sem id
-    public Carro(String modelo, String marca, String placa, int kmRodado, int consumo, int capacidadeTanque, int nivelCombustivel, int disponibilidade, String image) {
+    public Carro(String modelo, String marca, String placa, String tipo, int kmRodado, double consumo, int capacidadeTanque, int nivelCombustivel, int disponibilidade, String image) {
         this.modelo = modelo;
         this.marca = marca;
+        this.tipo = tipo;
         this.placa = placa;
         this.kmRodado = kmRodado;
         this.consumo = consumo;
@@ -28,10 +30,12 @@ public class Carro {
     }
 
     //construtor com id
-    public Carro(int id, String modelo, String marca, int kmRodado, int consumo, int capacidadeTanque, int nivelCombustivel, int disponibilidade, String image) {
+    public Carro(int id, String modelo, String marca, String tipo, String placa, int kmRodado, double consumo, int capacidadeTanque, int nivelCombustivel, int disponibilidade, String image) {
         this.id = id;
-        this.modelo = modelo;
         this.marca = marca;
+        this.modelo = modelo;
+        this.tipo = tipo;
+        this.placa = placa;
         this.kmRodado = kmRodado;
         this.consumo = consumo;
         this.capacidadeTanque = capacidadeTanque;
@@ -44,6 +48,7 @@ public class Carro {
     public Carro() {
         this.modelo = "";
         this.marca = "";
+        this.tipo = "";
         this.placa = "";
         this.kmRodado = 0;
         this.consumo = 0;
@@ -70,8 +75,12 @@ public class Carro {
         };
     }
 
-    public int getId() {
-        return id;
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getMarca(){
@@ -87,6 +96,13 @@ public class Carro {
     }
 
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public String getModelo() {
         return modelo;
@@ -106,11 +122,11 @@ public class Carro {
         this.kmRodado = kmRodado;
     }
 
-    public int getConsumo() {
+    public double getConsumo() {
         return consumo;
     }
 
-    public void setConsumo(int consumo) {
+    public void setConsumo(double consumo) {
         this.consumo = consumo;
     }
 

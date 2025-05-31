@@ -56,7 +56,7 @@ public class CarroDAO {
             stmt.setString(2, carro.getMarca());
             stmt.setString(3, carro.getPlaca());
             stmt.setInt(4, carro.getKmRodado());
-            stmt.setInt(5, carro.getConsumo());
+            stmt.setDouble(5, carro.getConsumo());
             stmt.setInt(6, carro.getCapacidadeTanque());
             stmt.setInt(7, carro.getNivelCombustivel());
             stmt.setString(8, carro.getImage());
@@ -112,7 +112,7 @@ public class CarroDAO {
                 carro.setMarca(rs.getString("marca"));
                 carro.setPlaca(rs.getString("placa"));
                 carro.setKmRodado(rs.getInt("kmRodado"));
-                carro.setConsumo(rs.getInt("consumo"));
+                carro.setConsumo(rs.getDouble("consumo"));
                 carro.setCapacidadeTanque(rs.getInt("capacidadeTanque"));
                 carro.setNivelCombustivel(rs.getInt("nivelCombustivel"));
                 carro.setImage(rs.getString("image"));
@@ -136,7 +136,7 @@ public class CarroDAO {
             stmt.setString(1, carro.getModelo());
             stmt.setString(2, carro.getMarca());
             stmt.setInt(3, carro.getKmRodado());
-            stmt.setInt(4, carro.getConsumo());
+            stmt.setDouble(4, carro.getConsumo());
             stmt.setInt(5, carro.getCapacidadeTanque());
             stmt.setInt(6, carro.getNivelCombustivel());
             stmt.setString(7, carro.getImage());
@@ -166,11 +166,13 @@ public class CarroDAO {
 
             while (rs.next()) {
                 Carro carro = new Carro();
+                carro.setId(rs.getInt("id"));
                 carro.setModelo(rs.getString("modelo"));
                 carro.setMarca(rs.getString("marca"));
+                carro.setTipo(rs.getString("tipo"));
                 carro.setPlaca(rs.getString("placa"));
                 carro.setKmRodado(rs.getInt("km_rodado"));
-                carro.setConsumo(rs.getInt("consumo"));
+                carro.setConsumo(rs.getDouble("consumo"));
                 carro.setCapacidadeTanque(rs.getInt("capacidade"));
                 carro.setNivelCombustivel(rs.getInt("nivel_combustivel"));
                 carro.setImage(rs.getString("image"));
@@ -193,11 +195,12 @@ public class CarroDAO {
 
             while (rs.next()) {
                 Carro carro = new Carro();
+
                 carro.setModelo(rs.getString("modelo"));
                 carro.setMarca(rs.getString("marca"));
                 carro.setPlaca(rs.getString("placa"));
                 carro.setKmRodado(rs.getInt("kmRodado"));
-                carro.setConsumo(rs.getInt("consumo"));
+                carro.setConsumo(rs.getDouble("consumo"));
                 carro.setCapacidadeTanque(rs.getInt("capacidadeTanque"));
                 carro.setNivelCombustivel(rs.getInt("nivelCombustivel"));
                 carro.setImage(rs.getString("image"));
@@ -224,7 +227,7 @@ public class CarroDAO {
                 carro.setMarca(rs.getString("marca"));
                 carro.setPlaca(rs.getString("placa"));
                 carro.setKmRodado(rs.getInt("kmRodado"));
-                carro.setConsumo(rs.getInt("consumo"));
+                carro.setConsumo(rs.getDouble("consumo"));
                 carro.setCapacidadeTanque(rs.getInt("capacidadeTanque"));
                 carro.setNivelCombustivel(rs.getInt("nivelCombustivel"));
                 carro.setImage(rs.getString("image"));

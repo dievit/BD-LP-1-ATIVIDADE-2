@@ -42,6 +42,12 @@ public class FrotaController {
     private TableColumn<Carro, String> colStatus;
 
     @FXML
+    private TableColumn<Carro, String> colMarca;
+
+    @FXML
+    private TableColumn<Carro, String> colTipo;
+
+    @FXML
     private Button btnFrotaManutencao;
 
     @FXML
@@ -53,14 +59,19 @@ public class FrotaController {
         assert btnFrotaEmRota != null : "fx:id=\"btnFrotaEmRota\" was not injected: check your FXML file 'Frota.fxml'.";
         assert btnFrotaManutencao != null : "fx:id=\"btnFrotaManutencao\" was not injected: check your FXML file 'Frota.fxml'.";
 
+
         assert colId != null : "fx:id=\"colId\" was not injected: check your FXML file 'Frota.fxml'.";
+        assert colMarca != null : "fx:id=\"colMarca\" was not injected: check your FXML file 'Frota.fxml'.";
         assert colModelo != null : "fx:id=\"colModelo\" was not injected: check your FXML file 'Frota.fxml'.";
         assert colPlaca != null : "fx:id=\"colPlaca\" was not injected: check your FXML file 'Frota.fxml'.";
+        assert colTipo != null : "fx:id=\"colTipo\" was not injected: check your FXML file 'Frota.fxml'.";
         assert colStatus != null : "fx:id=\"colStatus\" was not injected: check your FXML file 'Frota.fxml'.";
 
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
         colModelo.setCellValueFactory(new PropertyValueFactory<>("modelo"));
         colPlaca.setCellValueFactory(new PropertyValueFactory<>("placa"));
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colTipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
 
         btnFrotaDisponiveis.setOnAction(event -> {

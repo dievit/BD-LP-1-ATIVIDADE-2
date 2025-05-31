@@ -11,8 +11,8 @@ import java.util.List;
 public class MotoristaDAO {
     private static Connection conn;
 
-    public MotoristaDAO(Connection connection) {
-        this.conn = connection;
+    public MotoristaDAO() {
+        this.conn = conn;
     }
 
     public static boolean cnhExiste(String cnh) {

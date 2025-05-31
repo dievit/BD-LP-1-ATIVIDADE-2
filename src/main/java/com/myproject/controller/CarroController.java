@@ -59,6 +59,17 @@ public class CarroController {
         });
     }
 
+    @FXML
+    private void cadastrarCarro() {
+        String marca = txtMarca.getText();
+        String modelo = txtModelo.getText();
+        String placa = txtPlaca.getText();
+        int kmRodado = Integer.parseInt(txtKmRodado.getText());
+        int consumo = Integer.parseInt(txtConsumo.getText());
+        double capacidadeTanque = Double.parseDouble(txtCapacidadeTanque.getText());
+
+    }
+
 
 
 }
