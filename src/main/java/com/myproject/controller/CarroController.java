@@ -13,6 +13,9 @@ import java.util.ResourceBundle;
 
 public class CarroController {
 
+    //ATENCAO O CARROCONTROLLER ESTA RESPONSAVEL POR CARREGAR AS TELAS DO MENU PRINCIPAL
+    //E NÃO DEVE SER CONFUNDIDO COM O CRUD DO CARRO
+
     @FXML
     private ResourceBundle resources;
 
@@ -28,9 +31,16 @@ public class CarroController {
     @FXML
     private AnchorPane conteudoPane;
 
-    private void carregarTela(String caminhoFXML) {
+    void carregarTela(String caminhoFXML) {
         try {
-            AnchorPane novaTela = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(caminhoFXML)));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
+            AnchorPane novaTela = loader.load();
+
+            Object controller = loader.getController();
+
+            if(controller instanceof ControladorFilho) {
+                ((ControladorFilho) controller).setCarroController(this);
+            }
 
             AnchorPane.setTopAnchor(novaTela, 0.0);
             AnchorPane.setBottomAnchor(novaTela, 0.0);
@@ -41,6 +51,8 @@ public class CarroController {
             e.printStackTrace();
         }
     }
+
+
 
     @FXML
     private void abrirFrota() {
@@ -53,23 +65,14 @@ public class CarroController {
     }
 
     @FXML
+    private void abrirManutencao() {
+        carregarTela("/view/manutencao.fxml");
+    }
+
+    @FXML
     void initialize() {
         Platform.runLater(() -> {
             SplitPane.setResizableWithParent(menuPane, false);
         });
     }
-
-    @FXML
-    private void cadastrarCarro() {
-        String marca = txtMarca.getText();
-        String modelo = txtModelo.getText();
-        String placa = txtPlaca.getText();
-        int kmRodado = Integer.parseInt(txtKmRodado.getText());
-        int consumo = Integer.parseInt(txtConsumo.getText());
-        double capacidadeTanque = Double.parseDouble(txtCapacidadeTanque.getText());
-
-    }
-
-
-
 }

@@ -77,6 +77,39 @@ public class TelaInicialController {
         stage.show();
 
     }
+    @FXML
+    void openCarro() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Carro.fxml"));
+        Parent root = loader.load();
+
+        Stage newStage = new Stage();
+        newStage.setScene(new Scene(root));
+        newStage.sizeToScene();
+        newStage.show();
+
+        Stage atual = (Stage) btnCarroClass.getScene().getWindow();
+        atual.close();
+
+        newStage.setOnHidden(e -> {
+            try {
+                FXMLLoader loaderInicio = new FXMLLoader(getClass().getResource("/view/TelaInicial.fxml"));
+                Parent rootInicio = loaderInicio.load();
+
+                Stage stageInicio = new Stage();
+                stageInicio.setTitle("Tela Inicial");
+                stageInicio.setScene(new Scene(rootInicio));
+                stageInicio.show();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+//        // Código comentado para abrir a tela de CRUD de Carro
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Carro.fxml"));
+//        Parent root = loader.load();
+//        Stage stage = new Stage();
+//        stage.setScene(new Scene(root));
+//        stage.show();
+    }
 
     @FXML
     void openAluno() throws IOException {
@@ -123,12 +156,5 @@ public class TelaInicialController {
         stage.show();
     }
 
-    @FXML
-    void openCarro() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Carro.fxml"));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
+
 }

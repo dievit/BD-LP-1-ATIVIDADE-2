@@ -58,6 +58,15 @@ public class CrudCarroController {
         assert btnLimpar != null : "fx:id=\"btnLimpar\" was not injected: check your FXML file 'CrudCarro.fxml'.";
 
     }
+    @FXML
+    private void cadastrarCarro() {
+        String marca = txtMarca.getText();
+        String modelo = txtModelo.getText();
+        String placa = txtPlaca.getText();
+        int kmRodado = Integer.parseInt(txtKm.getText());
+        int consumo = Integer.parseInt(txtConsumo.getText());
+        double capacidadeTanque = Double.parseDouble(txtTanque.getText());
 
+    }
 
 }

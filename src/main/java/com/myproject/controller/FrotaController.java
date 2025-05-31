@@ -15,7 +15,23 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class FrotaController {
+public abstract class FrotaController implements ControladorFilho{
+    private CarroController carroController;
+
+    @Override
+    public void setCarroController(CarroController carroController) {
+        this.carroController = carroController;
+    }
+
+    @FXML
+    void abrirCadastroCarro() {
+        carroController.carregarTela("/view/CrudCarro.fxml");
+    }
+
+    @FXML
+    void abrirEditarCarro() {
+        carroController.carregarTela("/view/CrudCarro.fxml");
+    }
 
     @FXML
     private ResourceBundle resources;
@@ -52,6 +68,8 @@ public class FrotaController {
 
     @FXML
     private TableView<Carro> tabelaFrota;
+
+
 
     @FXML
     void initialize() {

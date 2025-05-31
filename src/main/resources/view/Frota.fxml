@@ -9,8 +9,8 @@
 <AnchorPane prefHeight="658.0" prefWidth="1076.0" styleClass="painel-conteudo" stylesheets="@css/estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.FrotaController">
    <children>
       <Button fx:id="btnFrotaDisponiveis" layoutX="67.0" layoutY="63.0" minHeight="50.0" mnemonicParsing="false" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Veículos" />
-      <Button fx:id="btnFrotaManutencao" layoutX="299.0" layoutY="63.0" minHeight="50.0" mnemonicParsing="false" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Em manutenção" />
-      <Button fx:id="btnFrotaEmRota" layoutX="531.0" layoutY="63.0" minHeight="50.0" mnemonicParsing="false" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Em rota" />
+      <Button fx:id="btnFrotaCadastrar" layoutX="299.0" layoutY="63.0" minHeight="50.0" mnemonicParsing="false" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Em manutenção" />
+      <Button fx:id="btnEditar" layoutX="531.0" layoutY="63.0" minHeight="50.0" mnemonicParsing="false" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Em rota" />
       <TableView fx:id="tabelaFrota" layoutX="10.0" layoutY="181.0" prefHeight="450.0" prefWidth="1000.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
         <columns>
             <TableColumn fx:id="colId" text="ID" prefWidth="100.0" />
