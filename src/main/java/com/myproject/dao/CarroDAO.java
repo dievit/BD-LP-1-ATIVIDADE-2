@@ -12,10 +12,10 @@ import java.util.List;
 
 public class CarroDAO {
 
-    private Connection conn;
+    private Connection connection;
 
-    public CarroDAO(Connection connection) {
-        this.conn = connection;
+    public CarroDAO() {
+        this.connection = connection;
     }
 
     public static boolean viagemAutorizada(Carro carro) {
@@ -123,12 +123,12 @@ public class CarroDAO {
         return carro;
     }
 
-    public void atualizarCarro(Carro carro) {
+    public static boolean atualizarCarro(Carro carro) {
         String sql = "UPDATE carro SET modelo = ?, marca = ?, kmRodado = ?, consumo = ?, capacidadeTanque = ?, nivelCombustivel = ?, image = ? WHERE placa = ?";
 
         if (!placaExiste(carro.getPlaca())) {
             System.out.println("Placa não encontrada.");
-            return;
+            return false;
         }
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -152,6 +152,7 @@ public class CarroDAO {
         } catch (SQLException e) {
             System.err.println("Erro ao atualizar veículo: " + e.getMessage());
         }
+        return false;
     }
     //fim dos metodos CRUD
 

@@ -15,7 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public abstract class FrotaController implements ControladorFilho{
+public class FrotaController implements ControladorFilho{
     private CarroController carroController;
 
     @Override
@@ -39,8 +39,7 @@ public abstract class FrotaController implements ControladorFilho{
     @FXML
     private URL location;
 
-    @FXML
-    private Button btnFrotaDisponiveis;
+
 
     @FXML
     private Button btnFrotaEmRota;
@@ -69,7 +68,8 @@ public abstract class FrotaController implements ControladorFilho{
     @FXML
     private TableView<Carro> tabelaFrota;
 
-
+    @FXML
+    private Button btnFrotaDisponiveis;
 
     @FXML
     void initialize() {

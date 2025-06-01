@@ -15,6 +15,15 @@ public class Carro {
     private String tipo; // Tipo do carro (pode ser SUV, Sedan, Hatch, etc.)
     private String image;
 
+    //construtor sem placa e sem km
+    public Carro(String modelo, String marca, String tipo, int capacidadeTanque, double consumo) {
+        this.modelo = modelo;
+        this.marca = marca;
+        this.tipo = tipo;
+        this.consumo = consumo; // Inicializando consumo como 0
+        this.capacidadeTanque = capacidadeTanque;
+    }
+
     //construtor sem id
     public Carro(String modelo, String marca, String placa, String tipo, int kmRodado, double consumo, int capacidadeTanque, int nivelCombustivel, int disponibilidade, String image) {
         this.modelo = modelo;
