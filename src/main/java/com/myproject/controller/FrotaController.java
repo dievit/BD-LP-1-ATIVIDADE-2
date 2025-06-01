@@ -1,5 +1,6 @@
 package com.myproject.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -10,12 +11,14 @@ import javafx.collections.ObservableList;
 
 import com.myproject.model.Carro;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
-public class FrotaController implements ControladorFilho{
+public abstract class FrotaController<T> implements ControladorFilho<T> {
     private CarroController carroController;
 
     @Override
@@ -39,7 +42,8 @@ public class FrotaController implements ControladorFilho{
     @FXML
     private URL location;
 
-
+    @FXML
+    private AnchorPane conteudoPane;
 
     @FXML
     private Button btnFrotaEmRota;
@@ -103,5 +107,26 @@ public class FrotaController implements ControladorFilho{
             tabelaFrota.setItems(observableCarros);
 
         });
+    }
+
+    public void carregarTela(String caminhoFXML) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
+            AnchorPane novaTela = loader.load();
+
+            Object controller = loader.getController();
+
+            if (controller instanceof ControladorFilho) {
+                ((ControladorFilho<?>) controller).setControladorPai(this);
+            }
+
+            AnchorPane.setTopAnchor(novaTela, 0.0);
+            AnchorPane.setBottomAnchor(novaTela, 0.0);
+            AnchorPane.setLeftAnchor(novaTela, 0.0);
+            AnchorPane.setRightAnchor(novaTela, 0.0);
+            conteudoPane.getChildren().setAll(novaTela);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

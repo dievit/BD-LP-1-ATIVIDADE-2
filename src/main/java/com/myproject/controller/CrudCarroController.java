@@ -2,6 +2,9 @@ package com.myproject.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.myproject.dao.CarroDAO;
+import com.myproject.model.Carro;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -45,6 +48,9 @@ public class CrudCarroController {
     private Button btnLimpar;
 
     @FXML
+    private Button btnVoltar;
+
+    @FXML
     void initialize() {
         assert txtPlaca != null : "fx:id=\"txtPlaca\" was not injected: check your FXML file 'CrudCarro.fxml'.";
         assert txtTanque != null : "fx:id=\"txtTanque\" was not injected: check your FXML file 'CrudCarro.fxml'.";
@@ -59,14 +65,40 @@ public class CrudCarroController {
 
     }
     @FXML
-    private void cadastrarCarro() {
+    private void limparCampos() {
+        txtPlaca.clear();
+        txtTanque.clear();
+        txtModelo.clear();
+        txtConsumo.clear();
+        txtTipo.clear();
+        txtKm.clear();
+        txtMarca.clear();
+    }
+
+    @FXML
+    private void onCadastrarCarro() {
         String marca = txtMarca.getText();
         String modelo = txtModelo.getText();
         String placa = txtPlaca.getText();
+        String tipo = txtTipo.getText();
         int kmRodado = Integer.parseInt(txtKm.getText());
-        int consumo = Integer.parseInt(txtConsumo.getText());
-        double capacidadeTanque = Double.parseDouble(txtTanque.getText());
+        double consumo = Integer.parseInt(txtConsumo.getText());
+        int capacidadeTanque = Integer.parseInt(txtTanque.getText());
 
+        if(marca.isEmpty() || modelo.isEmpty() || placa.isEmpty() || tipo.isEmpty() || txtKm.getText().isEmpty() || txtConsumo.getText().isEmpty() || txtTanque.getText().isEmpty()) {
+            System.out.println("Todos os campos devem ser preenchidos.");
+            return;
+        }
+        try {
+            Carro carro = new Carro(modelo, marca, placa, tipo, (int)kmRodado, (double)consumo, (int)capacidadeTanque);
+            CarroDAO carroDAO = new CarroDAO();
+            carroDAO.cadastrarCarro(carro);
+            System.out.println("Carro cadastrado com sucesso!");
+        } catch (Exception e) {
+            System.err.println("Erro ao cadastrar carro: " + e.getMessage());
+        }
+        limparCampos();
     }
+
 
 }

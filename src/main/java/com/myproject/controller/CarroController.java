@@ -1,6 +1,5 @@
 package com.myproject.controller;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
@@ -8,13 +7,25 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class CarroController {
+public abstract class CarroController implements ControladorFilho<FrotaController> {
 
     //ATENCAO O CARROCONTROLLER ESTA RESPONSAVEL POR CARREGAR AS TELAS DO MENU PRINCIPAL
     //E NÃO DEVE SER CONFUNDIDO COM O CRUD DO CARRO
+
+    private CarroController carroController;
+
+    @Override
+    public void setControladorPai(CarroController controller) {
+        this.carroController = controller;
+    }
+
+    @FXML
+    private void voltar() {
+        carroController.carregarTela("frota.fxml");
+    }
+
 
     @FXML
     private ResourceBundle resources;
@@ -31,6 +42,8 @@ public class CarroController {
     @FXML
     private AnchorPane conteudoPane;
 
+
+
     void carregarTela(String caminhoFXML) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
@@ -39,7 +52,7 @@ public class CarroController {
             Object controller = loader.getController();
 
             if(controller instanceof ControladorFilho) {
-                ((ControladorFilho) controller).setCarroController(this);
+                ((ControladorFilho<?>) controller).setControladorPai(this);
             }
 
             AnchorPane.setTopAnchor(novaTela, 0.0);
@@ -71,8 +84,14 @@ public class CarroController {
 
     @FXML
     void initialize() {
-        Platform.runLater(() -> {
-            SplitPane.setResizableWithParent(menuPane, false);
-        });
+//        Platform.runLater(() -> {
+//            if(menuPane != null && splitPane != null) {
+//                SplitPane.setResizableWithParent(menuPane, false);
+//            } else {
+//                System.err.println("MenuPane or SplitPane is null. Check your FXML file.");
+//            }
+//        });
     }
+
+
 }

@@ -24,6 +24,16 @@ public class Carro {
         this.capacidadeTanque = capacidadeTanque;
     }
 
+    public Carro(String marca, String modelo, String placa, String tipo, int KmRodado, double consumo, int capacidadeTanque) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.placa = placa;
+        this.tipo = tipo;
+        this.kmRodado = KmRodado;
+        this.consumo = consumo;
+        this.capacidadeTanque = capacidadeTanque;
+    }
+
     //construtor sem id
     public Carro(String modelo, String marca, String placa, String tipo, int kmRodado, double consumo, int capacidadeTanque, int nivelCombustivel, int disponibilidade, String image) {
         this.modelo = modelo;
