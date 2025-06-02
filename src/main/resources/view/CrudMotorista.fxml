@@ -7,7 +7,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="658.0" prefWidth="1076.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.CrudMotoristaController">
    <children>
       <TextField fx:id="txtValidade" layoutX="754.0" layoutY="206.0" prefHeight="50.0" prefWidth="195.0" promptText="Validade CNH xx/xx/xxxx" styleClass="txt-field" stylesheets="@css/estilo.css" />
@@ -27,5 +26,6 @@
             <Font name="Arial Bold" size="44.0" />
          </font>
       </Text>
+      <Button fx:id="btnVoltar" layoutX="44.0" layoutY="59.0" mnemonicParsing="false" onAction="#voltar" styleClass="button2" stylesheets="@css/estilo.css" text="Voltar" />
    </children>
 </AnchorPane>
