@@ -18,10 +18,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-public abstract class FrotaController<T> implements ControladorFilho<T> {
+public abstract class FrotaController {
     private CarroController carroController;
 
-    @Override
+
     public void setCarroController(CarroController carroController) {
         this.carroController = carroController;
     }
@@ -116,14 +116,12 @@ public abstract class FrotaController<T> implements ControladorFilho<T> {
 
             Object controller = loader.getController();
 
-            if (controller instanceof ControladorFilho) {
-                ((ControladorFilho<?>) controller).setControladorPai(this);
+            if (controller instanceof ControladorFilho<?>) {
+                @SuppressWarnings("unchecked")
+                ControladorFilho<FrotaController> filho = (ControladorFilho<FrotaController>) controller;
+                filho.setControladorPai(this);
             }
 
-            AnchorPane.setTopAnchor(novaTela, 0.0);
-            AnchorPane.setBottomAnchor(novaTela, 0.0);
-            AnchorPane.setLeftAnchor(novaTela, 0.0);
-            AnchorPane.setRightAnchor(novaTela, 0.0);
             conteudoPane.getChildren().setAll(novaTela);
         } catch (IOException e) {
             e.printStackTrace();

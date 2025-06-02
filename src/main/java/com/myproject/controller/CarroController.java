@@ -9,21 +9,23 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public abstract class CarroController implements ControladorFilho<FrotaController> {
+//ATENCAO O CARROCONTROLLER ESTA RESPONSAVEL POR CARREGAR AS TELAS DO MENU PRINCIPAL
+//E NÃO DEVE SER CONFUNDIDO COM O CRUD DO CARRO
+public class CarroController implements ControladorFilho<FrotaController> {
 
-    //ATENCAO O CARROCONTROLLER ESTA RESPONSAVEL POR CARREGAR AS TELAS DO MENU PRINCIPAL
-    //E NÃO DEVE SER CONFUNDIDO COM O CRUD DO CARRO
 
-    private CarroController carroController;
+    private FrotaController frotaController;
 
     @Override
-    public void setControladorPai(CarroController controller) {
-        this.carroController = controller;
+    public void setControladorPai(FrotaController controller) {
+        this.frotaController = controller;
     }
 
     @FXML
     private void voltar() {
-        carroController.carregarTela("frota.fxml");
+        if (frotaController != null) {
+            frotaController.carregarTela("/view/frota.fxml");
+        }
     }
 
 
@@ -50,9 +52,14 @@ public abstract class CarroController implements ControladorFilho<FrotaControlle
             AnchorPane novaTela = loader.load();
 
             Object controller = loader.getController();
+            if (controller instanceof FrotaController frota) {
+                frota.setCarroController(this); // <<< Isso aqui resolve seu problema
+            }
 
             if(controller instanceof ControladorFilho) {
-                ((ControladorFilho<?>) controller).setControladorPai(this);
+                @SuppressWarnings("unchecked")
+                ControladorFilho<CarroController> filho = (ControladorFilho<CarroController>) controller;
+                filho.setControladorPai(this);
             }
 
             AnchorPane.setTopAnchor(novaTela, 0.0);

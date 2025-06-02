@@ -17,7 +17,7 @@
       <TextField fx:id="txtTanque" layoutX="566.0" layoutY="273.0" prefHeight="50.0" prefWidth="300.0" promptText="Capacidade do tanque" styleClass="txt-field" stylesheets="@css/estilo.css" />
       <TextField fx:id="txtTipo" layoutX="178.0" layoutY="333.0" prefHeight="50.0" prefWidth="300.0" promptText="Tipo (Furgão, Van, Caminhão Pequeno)" styleClass="txt-field" stylesheets="@css/estilo.css" />
       <Button fx:id="btnUpImg" layoutX="178.0" layoutY="403.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Inserir imagem" textAlignment="CENTER" />
-      <Button fx:id="btnLimpar" layoutX="616.0" layoutY="541.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Limpar" onAction="#limparCampos"/>
+      <Button fx:id="btnLimpar" layoutX="616.0" layoutY="541.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Limpar" />
       <Button fx:id="btnSubmit" layoutX="228.0" layoutY="541.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Cadastrar" />
       <Text layoutX="326.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro de Veículo" textAlignment="CENTER">
          <font>

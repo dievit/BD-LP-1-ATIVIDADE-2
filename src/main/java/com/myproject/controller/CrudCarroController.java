@@ -9,7 +9,21 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class CrudCarroController {
+public class CrudCarroController implements ControladorFilho<CarroController>{
+    private CarroController carroController;
+
+    @Override
+    public void setControladorPai(CarroController controller) {
+        this.carroController = controller;
+    }
+
+    @FXML
+    private void voltar() {
+        if (carroController != null) {
+            carroController.carregarTela("/view/Frota.fxml");
+        }
+    }
+
 
     @FXML
     private ResourceBundle resources;
