@@ -82,6 +82,7 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
         txtModelo.clear();
         txtConsumo.clear();
         txtKm.clear();
+        txtTipo.clear();
         txtMarca.clear();
     }
 
@@ -103,6 +104,8 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
             txtTanque.setText(String.valueOf(carro.getCapacidadeTanqueStr()));
             txtConsumo.setText(String.valueOf(carro.getConsumoStr()));
             txtKm.setText(String.valueOf(carro.getKmRodadoStr()));
+
+
         } else {
             System.out.println("Carro não encontrado.");
         }
@@ -142,11 +145,13 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
             );
             carroAtualizado.setPlaca(placa);
 
-//            CarroDAO dao = new CarroDAO();
+
             boolean sucesso = CarroDAO.atualizarCarro(carroAtualizado);
 
             if (sucesso) {
                 System.out.println("Carro atualizado com sucesso!");
+
+                limparCampos();
             } else {
                 System.out.println("Erro ao atualizar o carro.");
             }

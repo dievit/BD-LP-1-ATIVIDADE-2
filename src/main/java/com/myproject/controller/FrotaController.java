@@ -24,6 +24,9 @@ import javafx.stage.Stage;
 public abstract class FrotaController {
     private CarroController carroController;
 
+    public void setControladorPai(CarroController carroController) {
+        this.carroController = carroController;
+    }
 
     public void setCarroController(CarroController carroController) {
         this.carroController = carroController;
@@ -153,16 +156,14 @@ public abstract class FrotaController {
     private void abrirTelaEdicao(Carro carro) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditarCarro.fxml"));
-            AnchorPane novaTela = loader.load();
+            AnchorPane tela = loader.load();
 
             EditarCarroController controller = loader.getController();
+            controller.setControladorPai(carroController);
             controller.preencherCampos(carro); // Aqui você envia os dados
 
-            if(carroController != null) {
-                carroController.getConteudoPane().getChildren().setAll(novaTela);
-            } else {
-                System.err.println("CarroController não está definido.");
-            }
+            conteudoPane.getChildren().setAll(tela);
+
 
         } catch (IOException e) {
             e.printStackTrace();

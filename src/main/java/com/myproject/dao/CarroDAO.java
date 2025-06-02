@@ -125,7 +125,7 @@ public class CarroDAO {
     }
 
     public static boolean atualizarCarro(Carro carro) {
-        String sql = "UPDATE carro SET modelo = ?, marca = ?, km_rodado = ?, consumo = ?, capacidade = ?, nivel_combustivel = ?, image = ? WHERE placa = ?";
+        String sql = "UPDATE carro SET modelo = ?, marca = ?, km_rodado = ?, consumo = ?, capacidade = ?, nivel_combustivel = ?, image = ?, tipo = ? WHERE placa = ?";
 
         if (!placaExiste(carro.getPlaca())) {
             System.out.println("Placa não encontrada.");
@@ -141,12 +141,18 @@ public class CarroDAO {
             stmt.setInt(5, carro.getCapacidadeTanque());
             stmt.setInt(6, carro.getNivelCombustivel());
             stmt.setString(7, carro.getImage());
-            stmt.setString(8, carro.getPlaca());
+            stmt.setString(8, carro.getTipo());
+            stmt.setString(9, carro.getPlaca());
 
             int affectedRows = stmt.executeUpdate();
+            System.out.println("Linhas afetadas: " + affectedRows);
+
 
             if (affectedRows > 0) {
                 System.out.println("Veículo atualizado com sucesso!");
+                System.out.println("Atualizando carro: " + carro.getPlaca());
+
+                return true;
             } else {
                 System.out.println("Nenhum veículo encontrado com a placa: " + carro.getPlaca());
             }
