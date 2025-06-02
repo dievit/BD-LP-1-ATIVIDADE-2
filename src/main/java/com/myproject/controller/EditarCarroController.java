@@ -86,15 +86,48 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
     }
 
     @FXML
+    private void onBuscarCarro() {
+        String placa = txtPlaca.getText();
+
+        if (placa.isEmpty()) {
+            System.out.println("O campo placa deve ser preenchido.");
+            return;
+        }
+
+        Carro carro = CarroDAO.buscarCarro(placa);
+
+        if (carro != null) {
+            txtMarca.setText(carro.getMarca());
+            txtModelo.setText(carro.getModelo());
+            txtTipo.setText(carro.getTipo());
+            txtTanque.setText(String.valueOf(carro.getCapacidadeTanqueStr()));
+            txtConsumo.setText(String.valueOf(carro.getConsumoStr()));
+            txtKm.setText(String.valueOf(carro.getKmRodadoStr()));
+        } else {
+            System.out.println("Carro não encontrado.");
+        }
+    }
+    public void preencherCampos(Carro carro) {
+        txtMarca.setText(carro.getMarca());
+        txtModelo.setText(carro.getModelo());
+        txtPlaca.setText(carro.getPlaca());
+        txtTipo.setText(carro.getTipo());
+        txtTanque.setText(String.valueOf(carro.getCapacidadeTanque()));
+        txtConsumo.setText(String.valueOf(carro.getConsumo()));
+        txtKm.setText(String.valueOf(carro.getKmRodado()));
+    }
+
+
+    @FXML
     private void onEditarCarro() {
         String marca = txtMarca.getText();
         String modelo = txtModelo.getText();
         String placa = txtPlaca.getText();
-        String consumo = txtConsumo.getText();
+        String consumoTexto = txtConsumo.getText().replace(" Km/l", "").trim();
         String tipo = txtTipo.getText();
-        String capacidadeTanque = txtTanque.getText();
+        String capacidadeTexto = txtTanque.getText().replace(" L", "").trim();
 
-        if (marca.isEmpty() || modelo.isEmpty() || tipo.isEmpty() || consumo.isEmpty() || capacidadeTanque.isEmpty()) {
+        if (marca.isEmpty() || modelo.isEmpty() || tipo.isEmpty() || consumoTexto.isEmpty() || capacidadeTexto.isEmpty()) {
             System.out.println("Todos os campos devem ser preenchidos.");
             return;
         }
@@ -104,8 +137,8 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
                     modelo,
                     marca,
                     tipo,
-                    Integer.parseInt(capacidadeTanque),
-                    Double.parseDouble(consumo)
+                    Integer.parseInt(capacidadeTexto),
+                    Double.parseDouble(consumoTexto)
             );
             carroAtualizado.setPlaca(placa);
 
@@ -121,4 +154,21 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
             e.printStackTrace();
         }
     }
+
+    public void preencherCamposComPlaca(String placa) {
+        Carro carro = CarroDAO.buscarCarro(placa); // Chama o DAO
+
+        if (carro != null) {
+            txtMarca.setText(carro.getMarca());
+            txtModelo.setText(carro.getModelo());
+            txtPlaca.setText(carro.getPlaca());
+            txtTipo.setText(carro.getTipo());
+            txtTanque.setText(String.valueOf(carro.getCapacidadeTanque()));
+            txtConsumo.setText(String.valueOf(carro.getConsumo()));
+            txtKm.setText(String.valueOf(carro.getKmRodado()));
+        } else {
+            System.out.println("Carro não encontrado.");
+        }
+    }
+
 }

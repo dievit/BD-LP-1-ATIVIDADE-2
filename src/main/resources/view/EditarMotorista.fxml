@@ -27,5 +27,6 @@
             </font>
         </Text>
       <Button fx:id="btnVoltar" layoutX="34.0" layoutY="49.0" mnemonicParsing="false" onAction="#voltar" styleClass="button2" stylesheets="@css/estilo.css" text="Voltar" />
+      <Button fx:id="btnBuscar" layoutX="139.0" layoutY="390.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Buscar" />
     </children>
 </AnchorPane>

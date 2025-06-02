@@ -7,10 +7,19 @@ public class Carro {
     private String marca;
     private String modelo;
     private String placa;
+
     private int kmRodado;
+    private String kmRodadoStr;
+
     private double consumo;
+    private String consumoStr;
+
     private int capacidadeTanque;
+    private String capacidadeTanqueStr;
+
     private int nivelCombustivel;
+    private String nivelCombustivelStr;
+
     private int disponibilidade;
     private String tipo; // Tipo do carro (pode ser SUV, Sedan, Hatch, etc.)
     private String image;
@@ -139,14 +148,34 @@ public class Carro {
 
     public void setKmRodado(int kmRodado) {
         this.kmRodado = kmRodado;
+        this.kmRodadoStr = kmRodado + " km"; // Atualiza a string de km rodado
+    }
+
+    public String getKmRodadoStr() {
+        return kmRodadoStr;
     }
 
     public double getConsumo() {
         return consumo;
     }
 
+    public String getConsumoStr() {
+        return consumoStr;
+    }
+
+    public String getCapacidadeTanqueStr() {
+        return capacidadeTanqueStr;
+    }
+
+    public String getNivelCombustivelStr() {
+        return nivelCombustivelStr;
+    }
+
+
+
     public void setConsumo(double consumo) {
         this.consumo = consumo;
+        this.consumoStr = consumo + " km/l"; // Atualiza a string de consumo
     }
 
     public int getCapacidadeTanque() {
@@ -155,6 +184,7 @@ public class Carro {
 
     public void setCapacidadeTanque(int capacidadeTanque) {
         this.capacidadeTanque = capacidadeTanque;
+        this.capacidadeTanqueStr = capacidadeTanque + " L"; // Atualiza a string de capacidade do tanque
     }
 
     public int getNivelCombustivel() {
@@ -163,6 +193,7 @@ public class Carro {
 
     public void setNivelCombustivel(int nivelCombustivel) {
         this.nivelCombustivel = nivelCombustivel;
+        this.nivelCombustivelStr = nivelCombustivel + " L"; // Atualiza a string de nível de combustível
     }
 
     public String getImage() {

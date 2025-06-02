@@ -74,6 +74,8 @@ public class CarroController implements ControladorFilho<FrotaController> {
 
 
 
+
+
     @FXML
     private void abrirFrota() {
         carregarTela("/view/frota.fxml");
@@ -87,6 +89,10 @@ public class CarroController implements ControladorFilho<FrotaController> {
     @FXML
     private void abrirManutencao() {
         carregarTela("/view/manutencao.fxml");
+    }
+
+    public AnchorPane getConteudoPane() {
+        return conteudoPane;
     }
 
     @FXML

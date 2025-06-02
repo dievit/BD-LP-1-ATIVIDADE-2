@@ -47,7 +47,7 @@ public class CarroDAO {
             return;
         }
 
-        String sql = "INSERT INTO carro (modelo, marca, placa, kmRodado, consumo, capacidadeTanque, nivelCombustivel, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO carro (modelo, marca, placa, km_rodado, consumo, capacidade, nivel_combustivel, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -96,7 +96,7 @@ public class CarroDAO {
         }
     }
 
-    public Carro buscarCarro(String placa) {
+    public static Carro buscarCarro(String placa) {
         String sql = "SELECT * FROM carro WHERE placa = ? AND removido = 0";
         Carro carro = null;
 
@@ -111,11 +111,12 @@ public class CarroDAO {
                 carro.setModelo(rs.getString("modelo"));
                 carro.setMarca(rs.getString("marca"));
                 carro.setPlaca(rs.getString("placa"));
-                carro.setKmRodado(rs.getInt("kmRodado"));
+                carro.setKmRodado(rs.getInt("km_rodado"));
                 carro.setConsumo(rs.getDouble("consumo"));
-                carro.setCapacidadeTanque(rs.getInt("capacidadeTanque"));
-                carro.setNivelCombustivel(rs.getInt("nivelCombustivel"));
+                carro.setCapacidadeTanque(rs.getInt("capacidade"));
+                carro.setNivelCombustivel(rs.getInt("nivel_combustivel"));
                 carro.setImage(rs.getString("image"));
+                carro.setTipo(rs.getString("tipo"));
             }
         } catch (SQLException e) {
             System.err.println("Erro ao buscar veículo: " + e.getMessage());
@@ -124,7 +125,7 @@ public class CarroDAO {
     }
 
     public static boolean atualizarCarro(Carro carro) {
-        String sql = "UPDATE carro SET modelo = ?, marca = ?, kmRodado = ?, consumo = ?, capacidadeTanque = ?, nivelCombustivel = ?, image = ? WHERE placa = ?";
+        String sql = "UPDATE carro SET modelo = ?, marca = ?, km_rodado = ?, consumo = ?, capacidade = ?, nivel_combustivel = ?, image = ? WHERE placa = ?";
 
         if (!placaExiste(carro.getPlaca())) {
             System.out.println("Placa não encontrada.");
@@ -200,10 +201,10 @@ public class CarroDAO {
                 carro.setModelo(rs.getString("modelo"));
                 carro.setMarca(rs.getString("marca"));
                 carro.setPlaca(rs.getString("placa"));
-                carro.setKmRodado(rs.getInt("kmRodado"));
+                carro.setKmRodado(rs.getInt("km_rodado"));
                 carro.setConsumo(rs.getDouble("consumo"));
-                carro.setCapacidadeTanque(rs.getInt("capacidadeTanque"));
-                carro.setNivelCombustivel(rs.getInt("nivelCombustivel"));
+                carro.setCapacidadeTanque(rs.getInt("capacidade"));
+                carro.setNivelCombustivel(rs.getInt("nivel_combustivel"));
                 carro.setImage(rs.getString("image"));
 
                 carrosIndisponiveis.add(carro);
@@ -227,10 +228,10 @@ public class CarroDAO {
                 carro.setModelo(rs.getString("modelo"));
                 carro.setMarca(rs.getString("marca"));
                 carro.setPlaca(rs.getString("placa"));
-                carro.setKmRodado(rs.getInt("kmRodado"));
+                carro.setKmRodado(rs.getInt("km_rodado"));
                 carro.setConsumo(rs.getDouble("consumo"));
-                carro.setCapacidadeTanque(rs.getInt("capacidadeTanque"));
-                carro.setNivelCombustivel(rs.getInt("nivelCombustivel"));
+                carro.setCapacidadeTanque(rs.getInt("capacidade"));
+                carro.setNivelCombustivel(rs.getInt("nivel_combustivel"));
                 carro.setImage(rs.getString("image"));
 
                 carrosRemovidos.add(carro);

@@ -12,11 +12,14 @@ import javafx.collections.ObservableList;
 import com.myproject.model.Carro;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public abstract class FrotaController {
     private CarroController carroController;
@@ -33,7 +36,7 @@ public abstract class FrotaController {
 
     @FXML
     void abrirEditarCarro() {
-        carroController.carregarTela("/view/CrudCarro.fxml");
+        carroController.carregarTela("/view/EditarCarro.fxml");
     }
 
     @FXML
@@ -70,6 +73,9 @@ public abstract class FrotaController {
     private Button btnFrotaManutencao;
 
     @FXML
+    private Button btnLimpar;
+
+    @FXML
     private TableView<Carro> tabelaFrota;
 
     @FXML
@@ -77,6 +83,18 @@ public abstract class FrotaController {
 
     @FXML
     void initialize() {
+        tabelaFrota.setRowFactory(tv -> {
+            TableRow<Carro> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && !row.isEmpty()) {
+                    Carro carroSelecionado = row.getItem();
+                    abrirTelaEdicao(carroSelecionado);
+                }
+            });
+            return row;
+        });
+
+
         assert btnFrotaDisponiveis != null : "fx:id=\"btnFrotaDisponiveis\" was not injected: check your FXML file 'Frota.fxml'.";
         assert btnFrotaEmRota != null : "fx:id=\"btnFrotaEmRota\" was not injected: check your FXML file 'Frota.fxml'.";
         assert btnFrotaManutencao != null : "fx:id=\"btnFrotaManutencao\" was not injected: check your FXML file 'Frota.fxml'.";
@@ -127,4 +145,30 @@ public abstract class FrotaController {
             e.printStackTrace();
         }
     }
+
+    void limparCampos() {
+        tabelaFrota.getItems().clear();
+    }
+
+    private void abrirTelaEdicao(Carro carro) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditarCarro.fxml"));
+            AnchorPane novaTela = loader.load();
+
+            EditarCarroController controller = loader.getController();
+            controller.preencherCampos(carro); // Aqui você envia os dados
+
+            if(carroController != null) {
+                carroController.getConteudoPane().getChildren().setAll(novaTela);
+            } else {
+                System.err.println("CarroController não está definido.");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
