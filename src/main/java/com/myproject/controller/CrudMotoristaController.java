@@ -8,6 +8,7 @@ import com.myproject.dao.MotoristaDAO;
 import com.myproject.model.Motorista;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class CrudMotoristaController implements ControladorFilho<CarroController> {
@@ -40,7 +41,7 @@ public class CrudMotoristaController implements ControladorFilho<CarroController
     private TextField txtCategoriaCnh;
 
     @FXML
-    private TextField txtValidade;
+    private DatePicker dpValidade;
 
     @FXML
     private TextField txtNum;
@@ -73,7 +74,7 @@ public class CrudMotoristaController implements ControladorFilho<CarroController
     void initialize() {
         assert btnUpImg != null : "fx:id=\"btnUpImg\" was not injected: check your FXML file 'CrudMotorista.fxml'.";
         assert txtCategoriaCnh != null : "fx:id=\"txtCategoriaCnh\" was not injected: check your FXML file 'CrudMotorista.fxml'.";
-        assert txtValidade != null : "fx:id=\"txtValidade\" was not injected: check your FXML file 'CrudMotorista.fxml'.";
+        assert dpValidade != null : "fx:id=\"dpValidade\" was not injected: check your FXML file 'CrudMotorista.fxml'.";
         assert txtNum != null : "fx:id=\"txtNum\" was not injected: check your FXML file 'CrudMotorista.fxml'.";
         assert btnCadastrar != null : "fx:id=\"btnCadastrar\" was not injected: check your FXML file 'CrudMotorista.fxml'.";
         assert txtCidade != null : "fx:id=\"txtCidade\" was not injected: check your FXML file 'CrudMotorista.fxml'.";
@@ -90,7 +91,7 @@ public class CrudMotoristaController implements ControladorFilho<CarroController
     private void limparCampos() {
         txtNome.clear();
         txtCnh.clear();
-        txtValidade.clear();
+        dpValidade.setValue(null);
         txtCategoriaCnh.clear();
         txtRua.clear();
         txtNum.clear();
@@ -103,7 +104,7 @@ public class CrudMotoristaController implements ControladorFilho<CarroController
     private void onCadastrarMotorista() {
         String nome = txtNome.getText();
         String cnh = txtCnh.getText();
-        String validade = txtValidade.getText();
+        LocalDate validade = dpValidade.getValue();
         String categoriaCnh = txtCategoriaCnh.getText();
         String rua = txtRua.getText();
         String numero = txtNum.getText();
@@ -111,14 +112,14 @@ public class CrudMotoristaController implements ControladorFilho<CarroController
         String telefone = txtTelefone.getText();
         String email = txtEmail.getText();
 
-        if(nome.isEmpty() || cnh.isEmpty() || validade.isEmpty() || categoriaCnh.isEmpty() ||
+        if(nome.isEmpty() || cnh.isEmpty() || validade == null || categoriaCnh.isEmpty() ||
             rua.isEmpty() || numero.isEmpty() || cidade.isEmpty() || telefone.isEmpty() || email.isEmpty()) {
             System.out.println("Preencha todos os campos.");
             return;
         }
 
         try {
-            Motorista motorista = new Motorista(nome, cnh, LocalDate.parse(validade), categoriaCnh, rua, numero, cidade, telefone, email);
+            Motorista motorista = new Motorista(nome, cnh, validade, categoriaCnh, rua, numero, cidade, telefone, email);
             MotoristaDAO motoristaDAO = new MotoristaDAO();
             motoristaDAO.cadastrarMotorista(motorista);
             System.out.println("Motorista cadastrado com sucesso!");

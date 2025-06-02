@@ -65,6 +65,15 @@ public class Motorista {
         this.disponibilidade = disponibilidade;
     }
 
+    public String getStatusCNH() {
+        if (validadeCNH != null && validadeCNH.isBefore(java.time.LocalDate.now())) {
+            return "CNH Vencida";
+        } else {
+            return "CNH Válida";
+        }
+    }
+
+
     public int getId() {
         return id;
     }

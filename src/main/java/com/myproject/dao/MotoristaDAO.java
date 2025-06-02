@@ -33,7 +33,7 @@ public class MotoristaDAO {
     }
 
     public static boolean cnhValida(String cnh) {
-        String sql = "SELECT COUNT(*) FROM motorista WHERE cnh = ? AND validadeCNH >= CURRENT_DATE";
+        String sql = "SELECT COUNT(*) FROM motorista WHERE cnh = ? AND validade_cnh >= CURRENT_DATE";
 
         try(Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -60,7 +60,7 @@ public class MotoristaDAO {
             return;
         }
 
-        String sql = "INSERT INTO motorista (nome, cnh, validadeCNH, categoriaCNH, endRua, endNumero, endCidade, telefone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO motorista (nome, cnh, validade_cnh, categoria_cnh, end_rua, end_numero, end_cidade, telefone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -124,11 +124,11 @@ public class MotoristaDAO {
                         rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("cnh"),
-                        rs.getDate("validadeCNH").toLocalDate(),
-                        rs.getString("categoriaCNH"),
-                        rs.getString("endRua"),
-                        rs.getString("endNumero"),
-                        rs.getString("endCidade"),
+                        rs.getDate("validade_cnh").toLocalDate(),
+                        rs.getString("categoria_cnh"),
+                        rs.getString("end_rua"),
+                        rs.getString("end_numero"),
+                        rs.getString("end_Cidade"),
                         rs.getString("telefone"),
                         rs.getString("email")
                 );
@@ -161,7 +161,7 @@ public class MotoristaDAO {
         String telefone = motorista.getTelefone() != null && !motorista.getTelefone().isEmpty() ? motorista.getTelefone() : motoristaAtual.getTelefone();
         String email = motorista.getEmail() != null && !motorista.getEmail().isEmpty() ? motorista.getEmail() : motoristaAtual.getEmail();
 
-        String sql = "UPDATE motorista SET nome = ?, validadeCNH = ?, categoriaCNH = ?, endRua = ?, endNumero = ?, endCidade = ?, telefone = ?, email = ? WHERE cnh = ?";
+        String sql = "UPDATE motorista SET nome = ?, validade_cnh = ?, categoria_cnh = ?, end_Rua = ?, end_numero = ?, end_cidade = ?, telefone = ?, email = ? WHERE cnh = ?";
 
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -198,11 +198,11 @@ public class MotoristaDAO {
                         rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("cnh"),
-                        rs.getDate("validadeCNH").toLocalDate(),
-                        rs.getString("categoriaCNH"),
-                        rs.getString("endRua"),
-                        rs.getString("endNumero"),
-                        rs.getString("endCidade"),
+                        rs.getDate("validade_cnh").toLocalDate(),
+                        rs.getString("categoria_cnh"),
+                        rs.getString("end_rua"),
+                        rs.getString("end_numero"),
+                        rs.getString("end_cidade"),
                         rs.getString("telefone"),
                         rs.getString("email")
                 );
@@ -216,7 +216,7 @@ public class MotoristaDAO {
 
     public List<Motorista> listarMotoristasAptos() {
         List<Motorista> motoristasAptos = new ArrayList<>();
-        String sql = "SELECT * FROM motorista WHERE removido = 0 AND validadeCNH >= CURRENT_DATE";
+        String sql = "SELECT * FROM motorista WHERE removido = 0 AND validade_cnh >= CURRENT_DATE";
 
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -227,11 +227,11 @@ public class MotoristaDAO {
                         rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("cnh"),
-                        rs.getDate("validadeCNH").toLocalDate(),
-                        rs.getString("categoriaCNH"),
-                        rs.getString("endRua"),
-                        rs.getString("endNumero"),
-                        rs.getString("endCidade"),
+                        rs.getDate("validade_cnh").toLocalDate(),
+                        rs.getString("categoria_cnh"),
+                        rs.getString("end_rua"),
+                        rs.getString("end_numero"),
+                        rs.getString("end_cidade"),
                         rs.getString("telefone"),
                         rs.getString("email")
                 );

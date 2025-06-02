@@ -9,7 +9,6 @@
 
 <AnchorPane prefHeight="658.0" prefWidth="1076.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.CrudMotoristaController">
    <children>
-      <TextField fx:id="txtValidade" layoutX="754.0" layoutY="206.0" prefHeight="50.0" prefWidth="195.0" promptText="Validade CNH xx/xx/xxxx" styleClass="txt-field" stylesheets="@css/estilo.css" />
       <TextField fx:id="txtCidade" layoutX="689.0" layoutY="329.0" prefHeight="50.0" prefWidth="260.0" promptText="Cidade" styleClass="txt-field" stylesheets="@css/estilo.css" />
       <TextField fx:id="txtNum" layoutX="549.0" layoutY="329.0" prefHeight="50.0" prefWidth="130.0" promptText="n°" styleClass="txt-field" stylesheets="@css/estilo.css" />
       <TextField fx:id="txtTelefone" layoutX="549.0" layoutY="268.0" prefHeight="50.0" prefWidth="400.0" promptText="Telefone" styleClass="txt-field" stylesheets="@css/estilo.css" />
@@ -19,7 +18,7 @@
       <TextField fx:id="txtCnh" layoutX="139.0" layoutY="206.0" prefHeight="50.0" prefWidth="400.0" promptText="CNH" styleClass="txt-field" stylesheets="@css/estilo.css" />
       <TextField fx:id="txtNome" layoutX="139.0" layoutY="145.0" prefHeight="50.0" prefWidth="400.0" promptText="Nome" styleClass="txt-field" stylesheets="@css/estilo.css" />
       <Button fx:id="btnUpImg" layoutX="549.0" layoutY="145.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="195.0" styleClass="button2" stylesheets="@css/estilo.css" text="Adicionar imagem" />
-      <Button fx:id="btnCadastrar" layoutX="228.0" layoutY="541.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Cadastrar" />
+      <Button fx:id="btnCadastrar" layoutX="228.0" layoutY="541.0" mnemonicParsing="false" onAction="#onCadastrarMotorista" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Cadastrar" />
       <Button fx:id="btnLimpar" layoutX="616.0" layoutY="541.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Limpar" />
       <Text layoutX="326.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro de Motorista" textAlignment="CENTER">
          <font>
@@ -27,5 +26,6 @@
          </font>
       </Text>
       <Button fx:id="btnVoltar" layoutX="44.0" layoutY="59.0" mnemonicParsing="false" onAction="#voltar" styleClass="button2" stylesheets="@css/estilo.css" text="Voltar" />
+      <DatePicker fx:id="dpValidade" layoutX="749.0" layoutY="203.0" prefHeight="45.0" prefWidth="240.0" styleClass="txt-field" stylesheets="@css/estilo.css" />
    </children>
 </AnchorPane>
