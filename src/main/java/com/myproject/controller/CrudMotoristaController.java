@@ -10,7 +10,22 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class CrudMotoristaController {
+public class CrudMotoristaController implements ControladorFilho<CarroController> {
+    private CarroController carroController;
+
+    @Override
+    public void setControladorPai(CarroController carroController) {
+        this.carroController = carroController;
+    }
+
+    @FXML
+    void voltar() {
+        if (carroController != null) {
+            carroController.carregarTela("/view/MainMotoristas.fxml");
+        } else {
+            System.out.println("CarroController não está definido.");
+        }
+    }
 
     @FXML
     private ResourceBundle resources;

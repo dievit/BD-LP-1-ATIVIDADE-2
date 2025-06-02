@@ -81,7 +81,7 @@ public class CarroController implements ControladorFilho<FrotaController> {
 
     @FXML
     private void abrirMotoristas() {
-        carregarTela("/view/motoristas.fxml");
+        carregarTela("/view/MainMotoristas.fxml");
     }
 
     @FXML

@@ -185,7 +185,7 @@ public class MotoristaDAO {
     // fim dos metodos CRUD
 
     //inicio metodos para listagem
-    public List<Motorista> listarMotoristas() {
+    public static List<Motorista> listarMotoristas() {
         List<Motorista> motoristas = new ArrayList<>();
         String sql = "SELECT * FROM motorista WHERE removido = 0";
 

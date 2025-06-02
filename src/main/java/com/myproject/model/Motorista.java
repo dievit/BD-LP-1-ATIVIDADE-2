@@ -14,6 +14,7 @@ public class Motorista {
     private String endCidade;
     private String telefone;
     private String email;
+    private String disponibilidade;
 
     // Construtor sem id
     public Motorista(String nome, String cnh, LocalDate validadeCNH, String categoriaCNH, String endRua, String endNumero, String endCidade, String telefone, String email) {
@@ -40,6 +41,7 @@ public class Motorista {
         this.endCidade = endCidade;
         this.telefone = telefone;
         this.email = email;
+        this.disponibilidade = "Disponível"; // Valor padrão
     }
 
     // Construtor vazio
@@ -53,6 +55,14 @@ public class Motorista {
         this.endCidade = "";
         this.telefone = "";
         this.email = "";
+        this.disponibilidade = "";
+    }
+    public String getDisponibilidade() {
+        return disponibilidade;
+    }
+
+    public void setDisponibilidade(String disponibilidade) {
+        this.disponibilidade = disponibilidade;
     }
 
     public int getId() {
