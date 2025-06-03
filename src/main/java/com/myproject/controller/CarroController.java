@@ -9,14 +9,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-//ATENCAO O CARROCONTROLLER ESTA RESPONSAVEL POR CARREGAR AS TELAS DO MENU PRINCIPAL
-//E NÃO DEVE SER CONFUNDIDO COM O CRUD DO CARRO
-public class CarroController implements ControladorFilho<FrotaController> {
 
-
+public class CarroController {
     private FrotaController frotaController;
 
-    @Override
     public void setControladorPai(FrotaController controller) {
         this.frotaController = controller;
     }

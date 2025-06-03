@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1366.0" stylesheets="@css/estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.CarroController">
+<AnchorPane prefHeight="768.0" prefWidth="1366.0" stylesheets="@css/estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.TelaCarroController">
    <children>
       <SplitPane fx:id="splitPane" dividerPositions="0.2089442815249267" prefHeight="768.0" prefWidth="1366.0">
 

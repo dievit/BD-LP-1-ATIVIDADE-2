@@ -1,5 +1,6 @@
 package com.myproject.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -12,8 +13,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
 public class MainMotoristasController implements ControladorFilho<CarroController> {
     private CarroController carroController;
@@ -78,9 +81,23 @@ public class MainMotoristasController implements ControladorFilho<CarroControlle
     @FXML
     private TableView<Motorista> tabelaMotoristas;
 
+    @FXML
+    private AnchorPane conteudoPane;
+
 
     @FXML
     void initialize() {
+        tabelaMotoristas.setRowFactory(tv -> {
+            TableRow<Motorista> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && !row.isEmpty()) {
+                    Motorista motorista = row.getItem();
+                    abrirTelaEdicao(motorista);
+                }
+            });
+            return row;
+        });
+
         assert btnMotoristas != null : "fx:id=\"btnMotoristas\" was not injected: check your FXML file 'MainMotoristas.fxml'.";
         assert btnCadastroMotorista != null : "fx:id=\"btnCadastroMotorista\" was not injected: check your FXML file 'MainMotoristas.fxml'.";
         assert btnEditarMotorista != null : "fx:id=\"btnEditarMotorista\" was not injected: check your FXML file 'MainMotoristas.fxml'.";
@@ -111,5 +128,36 @@ public class MainMotoristasController implements ControladorFilho<CarroControlle
         });
     }
 
-}
+    public void carregarTela(String caminhoFXML) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
+            AnchorPane novaTela = loader.load();
 
+            Object controller = loader.getController();
+
+            if (controller instanceof ControladorFilho<?>) {
+                ControladorFilho<MainMotoristasController> filho = (ControladorFilho<MainMotoristasController>) controller;
+                filho.setControladorPai(this);
+            }
+
+            conteudoPane.getChildren().setAll(novaTela);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void abrirTelaEdicao(Motorista motorista) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/EditarMotorista.fxml"));
+            AnchorPane novaTela = loader.load();
+
+            EditarMotoristaController controller = loader.getController();
+            controller.setControladorPai(carroController);
+//            controller.preencherCampos(motorista);
+
+            conteudoPane.getChildren().setAll(novaTela);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

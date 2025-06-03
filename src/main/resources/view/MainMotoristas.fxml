@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="658.0" prefWidth="1076.0" styleClass="painel-conteudo" stylesheets="@css/estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.MainMotoristasController">
+<AnchorPane fx:id="conteudoPane" prefHeight="658.0" prefWidth="1076.0" styleClass="painel-conteudo" stylesheets="@css/estilo.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.MainMotoristasController">
     <children>
         <Button fx:id="btnMotoristas" layoutX="67.0" layoutY="63.0" minHeight="50.0" mnemonicParsing="false" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Motoristas" />
         <Button fx:id="btnCadastroMotorista" layoutX="299.0" layoutY="63.0" minHeight="50.0" mnemonicParsing="false" onAction="#abrirCadastroMotorista" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Cadastrar Motorista" />

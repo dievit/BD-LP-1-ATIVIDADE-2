@@ -109,7 +109,7 @@ public class MotoristaDAO {
         }
     }
 
-    public Motorista buscarMotoristaPorCNH(String cnh) {
+    public static Motorista buscarMotoristaPorCNH(String cnh) {
         String sql = "SELECT * FROM motorista WHERE cnh = ? AND removido = 0";
         Motorista motorista = null;
 

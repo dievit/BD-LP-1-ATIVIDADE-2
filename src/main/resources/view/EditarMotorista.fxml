@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="658.0" prefWidth="1076.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.CrudMotoristaController">
+<AnchorPane prefHeight="658.0" prefWidth="1076.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.EditarMotoristaController">
     <children>
         <TextField fx:id="txtValidade" layoutX="754.0" layoutY="206.0" prefHeight="50.0" prefWidth="195.0" promptText="Validade CNH xx/xx/xxxx" styleClass="txt-field" stylesheets="@css/estilo.css" />
         <TextField fx:id="txtCidade" layoutX="689.0" layoutY="329.0" prefHeight="50.0" prefWidth="260.0" promptText="Cidade" styleClass="txt-field" stylesheets="@css/estilo.css" />

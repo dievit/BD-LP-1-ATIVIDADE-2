@@ -9,10 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class CrudCarroController implements ControladorFilho<CarroController>{
+public class CrudCarroController{
     private CarroController carroController;
 
-    @Override
     public void setControladorPai(CarroController controller) {
         this.carroController = controller;
     }
