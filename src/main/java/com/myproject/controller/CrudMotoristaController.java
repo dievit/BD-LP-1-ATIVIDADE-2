@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.myproject.dao.MotoristaDAO;
 import com.myproject.model.Motorista;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -122,11 +123,21 @@ public class CrudMotoristaController implements ControladorFilho<CarroController
             Motorista motorista = new Motorista(nome, cnh, validade, categoriaCnh, rua, numero, cidade, telefone, email);
             MotoristaDAO motoristaDAO = new MotoristaDAO();
             motoristaDAO.cadastrarMotorista(motorista);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Cadastro");
+            alert.setHeaderText(null);
+            alert.setContentText("Carro cadastrado com sucesso!");
+            alert.showAndWait();
             System.out.println("Motorista cadastrado com sucesso!");
         } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao cadastrar veículo");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
             System.err.println("Erro ao cadastrar motorista: " + e.getMessage());
         }
 
-        limparCampos(); // Limpa os campos após o cadastro
+        limparCampos();
     }
 }

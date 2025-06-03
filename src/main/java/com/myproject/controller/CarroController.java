@@ -1,5 +1,6 @@
 package com.myproject.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.SplitPane;
@@ -11,19 +12,6 @@ import java.util.ResourceBundle;
 
 
 public class CarroController {
-    private FrotaController frotaController;
-
-    public void setControladorPai(FrotaController controller) {
-        this.frotaController = controller;
-    }
-
-    @FXML
-    private void voltar() {
-        if (frotaController != null) {
-            frotaController.carregarTela("/view/frota.fxml");
-        }
-    }
-
 
     @FXML
     private ResourceBundle resources;
@@ -41,7 +29,6 @@ public class CarroController {
     private AnchorPane conteudoPane;
 
 
-
     void carregarTela(String caminhoFXML) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
@@ -52,7 +39,7 @@ public class CarroController {
                 frota.setCarroController(this); // <<< Isso aqui resolve seu problema
             }
 
-            if(controller instanceof ControladorFilho) {
+            if (controller instanceof ControladorFilho) {
                 @SuppressWarnings("unchecked")
                 ControladorFilho<CarroController> filho = (ControladorFilho<CarroController>) controller;
                 filho.setControladorPai(this);
@@ -67,9 +54,6 @@ public class CarroController {
             e.printStackTrace();
         }
     }
-
-
-
 
 
     @FXML
@@ -89,6 +73,11 @@ public class CarroController {
 
     public AnchorPane getConteudoPane() {
         return conteudoPane;
+    }
+
+    @FXML
+    private void fecharAplicacao() {
+        Platform.exit();
     }
 
     @FXML

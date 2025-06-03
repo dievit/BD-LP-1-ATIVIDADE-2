@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 import com.myproject.model.Carro;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -83,6 +83,8 @@ public abstract class FrotaController {
 
     @FXML
     private Button btnFrotaDisponiveis;
+
+
 
     @FXML
     void initialize() {

@@ -139,17 +139,17 @@ public class MotoristaDAO {
         return motorista;
     }
 
-    public void atualizarMotorista(Motorista motorista) {
+    public static boolean atualizarMotorista(Motorista motorista) {
 
         if (!MotoristaDAO.cnhExiste(motorista.getCnh())) {
             System.out.println("CNH não encontrada.");
-            return;
+            return false;
         }
         Motorista motoristaAtual = buscarMotoristaPorCNH(motorista.getCnh());
 
         if (motoristaAtual == null) {
             System.out.println("Motorista não encontrado.");
-            return;
+            return false;
         }
 
         String nome = motorista.getNome() != null && !motorista.getNome().isEmpty() ? motorista.getNome() : motoristaAtual.getNome();
@@ -180,6 +180,8 @@ public class MotoristaDAO {
         } catch (SQLException e) {
             System.err.println("Erro ao atualizar motorista: " + e.getMessage());
         }
+
+        return false;
     }
 
     // fim dos metodos CRUD

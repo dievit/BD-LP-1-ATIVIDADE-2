@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import com.myproject.dao.CarroDAO;
 import com.myproject.model.Carro;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
@@ -91,6 +92,12 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
         String placa = txtPlaca.getText();
 
         if (placa.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Cadastro");
+            alert.setHeaderText(null);
+            alert.setContentText("O campo placa deve ser preenchido.");
+            alert.showAndWait();
+
             System.out.println("O campo placa deve ser preenchido.");
             return;
         }
@@ -105,9 +112,15 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
             txtConsumo.setText(String.valueOf(carro.getConsumoStr()));
             txtKm.setText(String.valueOf(carro.getKmRodadoStr()));
         } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Carro não encontrado");
+            alert.setHeaderText(null);
+            alert.setContentText("Nenhum carro foi encontrado com os dados fornecidos.");
+            alert.showAndWait();
             System.out.println("Carro não encontrado.");
         }
     }
+
     public void preencherCampos(Carro carro) {
         txtMarca.setText(carro.getMarca());
         txtModelo.setText(carro.getModelo());
@@ -129,6 +142,11 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
         String capacidadeTexto = txtTanque.getText().replace(" L", "").trim();
 
         if (marca.isEmpty() || modelo.isEmpty() || tipo.isEmpty() || consumoTexto.isEmpty() || capacidadeTexto.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Campos obrigatórios");
+            alert.setHeaderText(null);
+            alert.setContentText("Todos os campos devem ser preenchidos.");
+            alert.showAndWait();
             System.out.println("Todos os campos devem ser preenchidos.");
             return;
         }
@@ -143,16 +161,29 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
             );
             carroAtualizado.setPlaca(placa);
 
-//            CarroDAO dao = new CarroDAO();
             boolean sucesso = CarroDAO.atualizarCarro(carroAtualizado);
 
             if (sucesso) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Sucesso");
+                alert.setHeaderText(null);
+                alert.setContentText("Carro atualizado com sucesso!");
+                alert.showAndWait();
                 System.out.println("Carro atualizado com sucesso!");
             } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erro");
+                alert.setHeaderText("Erro ao atualizar");
+                alert.setContentText("Ocorreu um problema ao atualizar os dados do carro.");
+                alert.showAndWait();
                 System.out.println("Erro ao atualizar o carro.");
             }
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro de formato");
+            alert.setHeaderText("Valores inválidos");
+            alert.setContentText("Certifique-se de preencher os campos numéricos corretamente.");
+            alert.showAndWait();
         }
     }
 

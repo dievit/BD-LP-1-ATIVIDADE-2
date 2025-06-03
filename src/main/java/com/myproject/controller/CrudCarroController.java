@@ -6,12 +6,14 @@ import java.util.ResourceBundle;
 import com.myproject.dao.CarroDAO;
 import com.myproject.model.Carro;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class CrudCarroController{
+public class CrudCarroController implements ControladorFilho<CarroController> {
     private CarroController carroController;
 
+    @Override
     public void setControladorPai(CarroController controller) {
         this.carroController = controller;
     }
@@ -77,6 +79,7 @@ public class CrudCarroController{
         assert btnLimpar != null : "fx:id=\"btnLimpar\" was not injected: check your FXML file 'CrudCarro.fxml'.";
 
     }
+
     @FXML
     private void limparCampos() {
         txtPlaca.clear();
@@ -95,19 +98,30 @@ public class CrudCarroController{
         String placa = txtPlaca.getText();
         String tipo = txtTipo.getText();
         int kmRodado = Integer.parseInt(txtKm.getText());
-        double consumo = Integer.parseInt(txtConsumo.getText());
+        double consumo = Double.parseDouble(txtConsumo.getText());
         int capacidadeTanque = Integer.parseInt(txtTanque.getText());
 
-        if(marca.isEmpty() || modelo.isEmpty() || placa.isEmpty() || tipo.isEmpty() || txtKm.getText().isEmpty() || txtConsumo.getText().isEmpty() || txtTanque.getText().isEmpty()) {
+        if (marca.isEmpty() || modelo.isEmpty() || placa.isEmpty() || tipo.isEmpty() || txtKm.getText().isEmpty() || txtConsumo.getText().isEmpty() || txtTanque.getText().isEmpty()) {
             System.out.println("Todos os campos devem ser preenchidos.");
             return;
         }
         try {
-            Carro carro = new Carro(modelo, marca, placa, tipo, (int)kmRodado, (double)consumo, (int)capacidadeTanque);
+            Carro carro = new Carro(modelo, marca, placa, tipo, (int) kmRodado, (double) consumo, (int) capacidadeTanque);
             CarroDAO carroDAO = new CarroDAO();
             carroDAO.cadastrarCarro(carro);
-            System.out.println("Carro cadastrado com sucesso!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Cadastro");
+            alert.setHeaderText(null);
+            alert.setContentText("Carro cadastrado com sucesso!");
+            alert.showAndWait();
+
+            System.out.println("Veículo cadastrado com sucesso!");
         } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Erro ao cadastrar veículo");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
             System.err.println("Erro ao cadastrar carro: " + e.getMessage());
         }
         limparCampos();

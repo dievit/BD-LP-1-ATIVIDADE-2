@@ -29,8 +29,19 @@ public class Motorista {
         this.email = email;
     }
 
+    public Motorista(String nome, LocalDate validadeCNH, String categoriaCNH, String endRua, String endNumero, String endCidade, String telefone, String email) {
+        this.nome = nome;
+        this.validadeCNH = validadeCNH;
+        this.categoriaCNH = categoriaCNH;
+        this.endRua = endRua;
+        this.endNumero = endNumero;
+        this.endCidade = endCidade;
+        this.telefone = telefone;
+        this.email = email;
+    }
+
     // Construtor com id
-        public Motorista(int id, String nome, String cnh, LocalDate validadeCNH, String categoriaCNH, String endRua, String endNumero, String endCidade, String telefone, String email) {
+    public Motorista(int id, String nome, String cnh, LocalDate validadeCNH, String categoriaCNH, String endRua, String endNumero, String endCidade, String telefone, String email) {
         this.id = id;
         this.nome = nome;
         this.cnh = cnh;
@@ -57,6 +68,7 @@ public class Motorista {
         this.email = "";
         this.disponibilidade = "";
     }
+
     public String getDisponibilidade() {
         return disponibilidade;
     }
@@ -80,6 +92,10 @@ public class Motorista {
 
     public String getNome() {
         return nome;
+    }
+
+    public void setCnh(String cnh) {
+        this.cnh = cnh;
     }
 
     public String getCnh() {

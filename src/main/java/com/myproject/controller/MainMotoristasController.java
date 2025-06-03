@@ -153,7 +153,7 @@ public class MainMotoristasController implements ControladorFilho<CarroControlle
 
             EditarMotoristaController controller = loader.getController();
             controller.setControladorPai(carroController);
-//            controller.preencherCampos(motorista);
+            controller.preencherCampos(motorista);
 
             conteudoPane.getChildren().setAll(novaTela);
         } catch (IOException e) {
