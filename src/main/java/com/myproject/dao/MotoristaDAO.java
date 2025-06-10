@@ -52,6 +52,36 @@ public class MotoristaDAO {
         return false;
     }
 
+    public static Object buscarMotoristaPorId(int motoristaId) {
+        String sql = "SELECT * FROM motorista WHERE id = ? AND removido = 0";
+        Motorista motorista = null;
+
+        try (Connection conn = ConexaoDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, motoristaId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                motorista = new Motorista(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("cnh"),
+                        rs.getDate("validade_cnh").toLocalDate(),
+                        rs.getString("categoria_cnh"),
+                        rs.getString("end_rua"),
+                        rs.getString("end_numero"),
+                        rs.getString("end_cidade"),
+                        rs.getString("telefone"),
+                        rs.getString("email")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar motorista por ID: " + e.getMessage());
+        }
+        return motorista;
+    }
+
     //inicio metodos CRUD
 
     public void cadastrarMotorista(Motorista motorista) {
@@ -168,20 +198,20 @@ public class MotoristaDAO {
 
             stmt.setString(1, nome);
             stmt.setDate(2, java.sql.Date.valueOf(validade));
-            stmt.setDate(3, java.sql.Date.valueOf(motorista.getValidadeCNH()));
-            stmt.setString(4, categoria);
-            stmt.setString(5, rua);
-            stmt.setString(6, numero);
-            stmt.setString(7, cidade);
-            stmt.setString(8, telefone);
-            stmt.setString(9, email);
+            stmt.setString(3, categoria);
+            stmt.setString(4, rua);
+            stmt.setString(5, numero);
+            stmt.setString(6, cidade);
+            stmt.setString(7, telefone);
+            stmt.setString(8, email);
+            stmt.setString(9, motorista.getCnh());
 
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Erro ao atualizar motorista: " + e.getMessage());
         }
 
-        return false;
+        return true;
     }
 
     // fim dos metodos CRUD
@@ -216,7 +246,7 @@ public class MotoristaDAO {
         return motoristas;
     }
 
-    public List<Motorista> listarMotoristasAptos() {
+    public static List<Motorista> listarMotoristasAptos() {
         List<Motorista> motoristasAptos = new ArrayList<>();
         String sql = "SELECT * FROM motorista WHERE removido = 0 AND validade_cnh >= CURRENT_DATE";
 

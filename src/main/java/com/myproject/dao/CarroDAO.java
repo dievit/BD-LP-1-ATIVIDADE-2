@@ -40,6 +40,35 @@ public class CarroDAO {
         return false;
     }
 
+    public static Object buscarCarroPorId(int carroId) {
+        String sql = "SELECT * FROM carro WHERE id = ? AND removido = 0";
+        Carro carro = null;
+
+        try (Connection conn = ConexaoDB.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, carroId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                carro = new Carro();
+                carro.setId(rs.getInt("id"));
+                carro.setModelo(rs.getString("modelo"));
+                carro.setMarca(rs.getString("marca"));
+                carro.setPlaca(rs.getString("placa"));
+                carro.setKmRodado(rs.getInt("km_rodado"));
+                carro.setConsumo(rs.getDouble("consumo"));
+                carro.setCapacidadeTanque(rs.getInt("capacidade"));
+                carro.setNivelCombustivel(rs.getInt("nivel_combustivel"));
+                carro.setImage(rs.getString("image"));
+                carro.setTipo(rs.getString("tipo"));
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao buscar veículo por ID: " + e.getMessage());
+        }
+        return carro;
+    }
+
     //inicio metodos CRUD
     public void cadastrarCarro(Carro carro) {
         if (CarroDAO.placaExiste(carro.getPlaca())) {

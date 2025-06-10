@@ -86,6 +86,20 @@ public class Carro {
         this.image = "";
     }
 
+    public Carro(int carroId) {
+        this.id = carroId;
+        this.modelo = "";
+        this.marca = "";
+        this.tipo = "";
+        this.placa = "";
+        this.kmRodado = 0;
+        this.consumo = 0;
+        this.capacidadeTanque = 0;
+        this.nivelCombustivel = 0;
+        this.disponibilidade = 0; // 0 para disponível, 1 para em manutenção e 2 para em rota
+        this.image = "";
+    }
+
     public int getDisponibilidade() {
         return disponibilidade;
     }

@@ -21,7 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public abstract class FrotaController {
+public class FrotaController {
     private CarroController carroController;
 
     public void setControladorPai(CarroController carroController) {

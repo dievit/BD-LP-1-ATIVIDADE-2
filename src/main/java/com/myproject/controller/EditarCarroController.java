@@ -141,7 +141,7 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
         String tipo = txtTipo.getText();
         String capacidadeTexto = txtTanque.getText().replace(" L", "").trim();
 
-        if (marca.isEmpty() || modelo.isEmpty() || tipo.isEmpty() || consumoTexto.isEmpty() || capacidadeTexto.isEmpty()) {
+        if (marca != null && marca.isEmpty() || modelo != null && modelo.isEmpty() || tipo != null && tipo.isEmpty() || consumoTexto != null && consumoTexto.isEmpty() || capacidadeTexto != null && capacidadeTexto.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Campos obrigatórios");
             alert.setHeaderText(null);

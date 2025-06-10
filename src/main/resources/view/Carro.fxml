@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -12,7 +13,8 @@
                <children>
                   <Button fx:id="btnToFrota" layoutX="25.0" layoutY="176.0" mnemonicParsing="false" onAction="#abrirFrota" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Frota" />
                   <Button fx:id="btnToMotoristas" layoutX="25.0" layoutY="251.0" mnemonicParsing="false" onAction="#abrirMotoristas" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Motoristas" />
-                  <Button fx:id="btnClose" layoutX="25.0" layoutY="684.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Fechar" onAction="#fecharAplicacao"/>
+                  <Button fx:id="btnClose" layoutX="25.0" layoutY="684.0" mnemonicParsing="false" onAction="#fecharAplicacao" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Fechar" />
+                  <Button fx:id="btnViagem" layoutX="25.0" layoutY="326.0" mnemonicParsing="false" onAction="#abrirViagens" prefHeight="50.0" prefWidth="200.0" stylesheets="@css/estilo.css" text="Viagem" />
                </children>
             </AnchorPane>
           <AnchorPane fx:id="conteudoPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" styleClass="painel-conteudo" />

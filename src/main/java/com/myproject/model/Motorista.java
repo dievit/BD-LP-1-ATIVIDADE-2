@@ -69,6 +69,20 @@ public class Motorista {
         this.disponibilidade = "";
     }
 
+    public Motorista(int motoristaId) {
+        this.id = motoristaId;
+        this.nome = "";
+        this.cnh = "";
+        this.validadeCNH = null;
+        this.categoriaCNH = "";
+        this.endRua = "";
+        this.endNumero = "";
+        this.endCidade = "";
+        this.telefone = "";
+        this.email = "";
+        this.disponibilidade = "Disponível"; // Valor padrão
+    }
+
     public String getDisponibilidade() {
         return disponibilidade;
     }

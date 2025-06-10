@@ -67,13 +67,10 @@ public class CarroController {
     }
 
     @FXML
-    private void abrirManutencao() {
-        carregarTela("/view/manutencao.fxml");
+    private void abrirViagens() {
+        carregarTela("/view/ViagemMain.fxml");
     }
 
-    public AnchorPane getConteudoPane() {
-        return conteudoPane;
-    }
 
     @FXML
     private void fecharAplicacao() {
@@ -82,13 +79,7 @@ public class CarroController {
 
     @FXML
     void initialize() {
-//        Platform.runLater(() -> {
-//            if(menuPane != null && splitPane != null) {
-//                SplitPane.setResizableWithParent(menuPane, false);
-//            } else {
-//                System.err.println("MenuPane or SplitPane is null. Check your FXML file.");
-//            }
-//        });
+
     }
 
 
