@@ -5,23 +5,29 @@ public class Destino {
     private String nome;
     private String cidade;
     private String estado;
-    private double distanciakm;
+    private double distanciaKm;
 
-    public Destino(int id, String nome, String cidade, String estado, double distanciakm) {
+    public Destino(int id, String nome, String cidade, String estado, double distanciaKm) {
         this.id = id;
         this.nome = nome;
         this.cidade = cidade;
         this.estado = estado;
-        this.distanciakm = distanciakm;
+        this.distanciaKm = distanciaKm;
     }
 
     //construtor sem id
-    public Destino(String nome, String cidade, String estado, double distanciakm) {
+    public Destino(String nome, String cidade, String estado, double distanciaKm) {
         this.nome = nome;
         this.cidade = cidade;
         this.estado = estado;
-        this.distanciakm = distanciakm;
+        this.distanciaKm = distanciaKm;
     }
+
+    public Destino(int id) {
+        this.id = id;
+    }
+
+
 
     public int getId() {
         return id;
@@ -56,21 +62,17 @@ public class Destino {
     }
 
     public double getDistanciakm() {
-        return distanciakm;
+        return distanciaKm;
     }
 
-    public void setDistanciakm(double distanciakm) {
-        this.distanciakm = distanciakm;
+    public void setDistanciaKm(double distanciaKm) {
+        this.distanciaKm = distanciaKm;
     }
 
     @Override
     public String toString() {
-        return "Destino{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", estado='" + estado + '\'' +
-                ", distanciakm=" + distanciakm +
-                '}';
+        return String.format("Destino [ID: %d, Nome: %s, Cidade: %s, Estado: %s, Distância: %.2f km]",
+                id, nome, cidade, estado, distanciaKm);
     }
+
 }

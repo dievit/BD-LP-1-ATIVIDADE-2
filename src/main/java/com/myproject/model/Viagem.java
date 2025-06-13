@@ -7,18 +7,16 @@ public class Viagem {
     private int id;
     private Motorista motorista;
     private Carro carro;
-    private String partida;
-    private String destino;
+    private Destino destino;
     private double distanciaKm;
     private double custoEstimado;
     private boolean emRota;
     private LocalDate dataViagem;
 
-    public Viagem(int id, Motorista motorista, Carro carro, String partida, String destino, double distanciaKm, double custoEstimado, LocalDate dataViagem) {
+    public Viagem(int id, Motorista motorista, Carro carro, Destino destino, double distanciaKm, double custoEstimado, LocalDate dataViagem) {
         this.id = id;
         this.motorista = motorista;
         this.carro = carro;
-        this.partida = partida;
         this.destino = destino;
         this.distanciaKm = distanciaKm;
         this.custoEstimado = custoEstimado;
@@ -28,10 +26,9 @@ public class Viagem {
     }
 
     //constutor sem id
-    public Viagem(Motorista motorista, Carro carro, String partida, String destino, double distanciaKm, double custoEstimado, LocalDate dataViagem) {
+    public Viagem(Motorista motorista, Carro carro, Destino destino, double distanciaKm, double custoEstimado, LocalDate dataViagem) {
         this.motorista = motorista;
         this.carro = carro;
-        this.partida = partida;
         this.destino = destino;
         this.distanciaKm = distanciaKm;
         this.custoEstimado = custoEstimado;
@@ -45,17 +42,17 @@ public class Viagem {
 
     }
 
-    public Viagem(int id, Object motoristaId, Object carroId, String partida, String destino, double distanciaKm, double custoEstimado, boolean emRota, LocalDate dataViagem) {
+    public Viagem(int id, Motorista motorista, Carro carro, Destino destino, double distanciaKm, double custoEstimado, boolean emRota, LocalDate dataViagem) {
         this.id = id;
-        this.motorista = new Motorista((int) motoristaId);
-        this.carro = new Carro((int) carroId);
-        this.partida = partida;
+        this.motorista = motorista;
+        this.carro = carro;
         this.destino = destino;
         this.distanciaKm = distanciaKm;
         this.custoEstimado = custoEstimado;
         this.emRota = emRota;
         this.dataViagem = dataViagem;
     }
+
 
     //metodos de acesso
 
@@ -83,19 +80,11 @@ public class Viagem {
         this.carro = carro;
     }
 
-    public String getPartida() {
-        return partida;
-    }
-
-    public void setPartida(String partida) {
-        this.partida = partida;
-    }
-
-    public String getDestino() {
+    public Destino getDestino() {
         return destino;
     }
 
-    public void setDestino(String destino) {
+    public void setDestino(Destino destino) {
         this.destino = destino;
     }
 
@@ -133,16 +122,17 @@ public class Viagem {
 
     @Override
     public String toString() {
-        return "Viagem{" +
-                "id=" + id +
-                ", motorista=" + motorista +
-                ", carro=" + carro +
-                ", partida='" + partida + '\'' +
-                ", destino='" + destino + '\'' +
-                ", distanciaKm=" + distanciaKm +
-                ", custoEstimado=" + custoEstimado +
-                ", emRota=" + emRota +
-                ", dataViagem=" + dataViagem +
-                '}';
+        return String.format(
+                "Viagem{id=%d, motorista=%s, carro=%s, destino=%s, distancia=%.2f km, custo=R$%.2f, emRota=%s, data=%s}",
+                id,
+                motorista != null ? motorista.getNome() : "N/A",
+                carro != null ? carro.getModelo() : "N/A",
+                destino != null ? destino.getNome() : "N/A",
+                distanciaKm,
+                custoEstimado,
+                emRota ? "Sim" : "Não",
+                dataViagem
+        );
     }
+
 }

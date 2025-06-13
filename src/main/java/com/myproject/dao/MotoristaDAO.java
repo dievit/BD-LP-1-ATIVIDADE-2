@@ -9,11 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MotoristaDAO {
-    private static Connection conn;
-
-    public MotoristaDAO() {
-        this.conn = conn;
-    }
 
     public static boolean cnhExiste(String cnh) {
         String sql = "SELECT COUNT(*) FROM motorista WHERE cnh = ?";
@@ -33,7 +28,7 @@ public class MotoristaDAO {
     }
 
     public static boolean cnhValida(String cnh) {
-        String sql = "SELECT COUNT(*) FROM motorista WHERE cnh = ? AND validade_cnh >= CURRENT_DATE";
+        String sql = "COUNT(*) FROM motorista WHERE cnh = ? AND validade_cnh >= CURRENT_DATE";
 
         try(Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -52,7 +47,7 @@ public class MotoristaDAO {
         return false;
     }
 
-    public static Object buscarMotoristaPorId(int motoristaId) {
+    public static Motorista buscarMotoristaPorId(int motoristaId) {
         String sql = "SELECT * FROM motorista WHERE id = ? AND removido = 0";
         Motorista motorista = null;
 
@@ -125,9 +120,7 @@ public class MotoristaDAO {
             stmt.setString(1, motorista.getCnh());
             stmt.executeUpdate();
 
-            System.out.println("Motorista removido com sucesso!");
             int affectedRows = stmt.executeUpdate();
-
             if (affectedRows > 0) {
                 System.out.println("Motorista removido com sucesso!");
             } else {

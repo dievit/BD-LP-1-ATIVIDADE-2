@@ -9,13 +9,12 @@
 
 <AnchorPane prefHeight="658.0" prefWidth="1076.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.myproject.controller.IniciarViagemController">
     <children>
-        <TextField fx:id="fieldDistancia" editable="false" layoutX="139.0" layoutY="380.0" prefHeight="57.0" prefWidth="400.0" promptText="Distância" styleClass="txt-field" stylesheets="@css/estilo.css" />
-        <TextField fx:id="fieldCusto" editable="false" layoutX="139.0" layoutY="444.0" prefHeight="57.0" prefWidth="400.0" promptText="Custo Estimado" styleClass="txt-field" stylesheets="@css/estilo.css" />
+        <TextField fx:id="fieldDistancia" editable="false" layoutX="139.0" layoutY="315.0" prefHeight="57.0" prefWidth="400.0" promptText="Distância" styleClass="txt-field" stylesheets="@css/estilo.css" />
+        <TextField fx:id="fieldCusto" editable="false" layoutX="139.0" layoutY="380.0" prefHeight="57.0" prefWidth="400.0" promptText="Custo Estimado" styleClass="txt-field" stylesheets="@css/estilo.css" />
       <ComboBox fx:id="cboxMotorista" layoutX="139.0" layoutY="120.0" prefHeight="50.0" prefWidth="400.0" promptText="Selecione o Motorista" styleClass="txt-field" stylesheets="@css/estilo.css" />
       <ComboBox fx:id="cboxVeiculo" layoutX="139.0" layoutY="185.0" prefHeight="50.0" prefWidth="400.0" promptText="Selecione o Veículo" styleClass="txt-field" stylesheets="@css/estilo.css" />
-      <ComboBox fx:id="cboxPartida" layoutX="139.0" layoutY="250.0" prefHeight="50.0" prefWidth="400.0" promptText="Local de Partida" styleClass="txt-field" stylesheets="@css/estilo.css" />
-      <ComboBox fx:id="cboxDestino" layoutX="139.0" layoutY="316.0" prefHeight="57.0" prefWidth="400.0" promptText="Local de Destino" styleClass="txt-field" stylesheets="@css/estilo.css" />
-        <Button fx:id="btnIniciarViagem" layoutX="228.0" layoutY="541.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Iniciar Viagem" />
+      <ComboBox fx:id="cboxDestino" layoutX="139.0" layoutY="250.0" prefHeight="57.0" prefWidth="400.0" promptText="Local de Destino" styleClass="txt-field" stylesheets="@css/estilo.css" />
+        <Button fx:id="btnIniciarViagem" layoutX="228.0" layoutY="541.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Iniciar Viagem" onAction="#onCadastrarViagem"/>
         <Button fx:id="btnLimpar" layoutX="616.0" layoutY="541.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Limpar" />
         <Text layoutX="292.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lançamento de Viagem" textAlignment="CENTER">
             <font>

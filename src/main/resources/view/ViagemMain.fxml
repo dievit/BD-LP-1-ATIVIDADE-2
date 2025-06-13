@@ -16,9 +16,9 @@
                 <TableColumn fx:id="colDestino" prefWidth="200.0" text="Destino" />
                 <TableColumn fx:id="colMotorista" prefWidth="200.0" text="Motorista" />
                 <TableColumn fx:id="colVeiculo" prefWidth="200.0" text="Veículo" />
+                <TableColumn fx:id="colPlaca" prefWidth="200.0" text="Placa" />
                 <TableColumn fx:id="colDistancia" prefWidth="200.0" text="Distância" />
                 <TableColumn fx:id="colDataViagem" prefWidth="200.0" text="Data" />
-                <TableColumn fx:id="colStatus" prefWidth="200.0" text="Status" />
             </columns>
         </TableView>
     </children>

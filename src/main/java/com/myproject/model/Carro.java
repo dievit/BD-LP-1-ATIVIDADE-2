@@ -221,6 +221,7 @@ public class Carro {
 
     @Override
     public String toString() {
-        return modelo;
+        return modelo + " (" + placa + ")";
     }
+
 }

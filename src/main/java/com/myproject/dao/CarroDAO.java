@@ -40,7 +40,7 @@ public class CarroDAO {
         return false;
     }
 
-    public static Object buscarCarroPorId(int carroId) {
+    public static Carro buscarCarroPorId(int carroId) {
         String sql = "SELECT * FROM carro WHERE id = ? AND removido = 0";
         Carro carro = null;
 

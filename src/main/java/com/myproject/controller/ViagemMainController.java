@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.myproject.dao.ViagemDAO;
+import com.myproject.model.Carro;
 import com.myproject.model.Viagem;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -69,19 +70,7 @@ public class ViagemMainController implements ControladorFilho<CarroController> {
     private Button btnListarViagem;
 
     @FXML
-    private TableColumn<Viagem, String> colStatus;
-
-
-    @FXML
-    void abrirEditarCarro(ActionEvent event) {
-
-    }
-
-    @FXML
-    private void cadastrarViagem(ActionEvent event) {
-
-    }
-
+    private TableColumn<Viagem, String> colPlaca;
 
 
     @FXML
@@ -97,17 +86,53 @@ public class ViagemMainController implements ControladorFilho<CarroController> {
         assert btnEditarViagem != null : "fx:id=\"btnEditarViagem\" was not injected: check your FXML file 'ViagemMain.fxml'.";
         assert colId != null : "fx:id=\"colId\" was not injected: check your FXML file 'ViagemMain.fxml'.";
         assert btnListarViagem != null : "fx:id=\"btnListarViagem\" was not injected: check your FXML file 'ViagemMain.fxml'.";
-        assert colStatus != null : "fx:id=\"colStatus\" was not injected: check your FXML file 'ViagemMain.fxml'.";
+        assert colPlaca != null : "fx:id=\"colStatus\" was not injected: check your FXML file 'ViagemMain.fxml'.";
 
+        // Mapeamento dos dados
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colDestino.setCellValueFactory(new PropertyValueFactory<>("destino"));
+        colDestino.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDestino().getNome()));
         colMotorista.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMotorista().getNome()));
         colVeiculo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCarro().getModelo()));
         colDistancia.setCellValueFactory(new PropertyValueFactory<>("distanciaKm"));
         colDataViagem.setCellValueFactory(new PropertyValueFactory<>("dataViagem"));
-        colStatus.setCellValueFactory(cellData -> new SimpleStringProperty(
-                cellData.getValue().isEmRota() ? "Em Rota" : "Finalizada"
-        ));
+        colPlaca.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCarro().getPlaca()));
+        // Centralização
+        centralizarColuna(colId);
+        centralizarColuna(colDestino);
+        centralizarColuna(colMotorista);
+        centralizarColuna(colVeiculo);
+        centralizarColuna(colPlaca);
+        centralizarColuna(colDistancia);
+        centralizarColuna(colDataViagem);
+
+        // Larguras fixas (ajuste conforme sua preferência visual)
+        definirLargura(colId, 85);
+        definirLargura(colDestino, 150);
+        definirLargura(colMotorista, 150);
+        definirLargura(colVeiculo, 150);
+        definirLargura(colDistancia, 150);
+        definirLargura(colDataViagem, 150);
+        definirLargura(colPlaca, 150);
+    }
+
+    // Método para centralizar o conteúdo da célula
+    private void centralizarColuna(TableColumn<?, ?> coluna) {
+        coluna.setCellFactory(column -> new javafx.scene.control.cell.TextFieldTableCell() {
+            @Override
+            public void updateItem(Object item, boolean empty) {
+                super.updateItem(item, empty);
+                if (!empty) {
+                    setStyle("-fx-alignment: CENTER;");
+                }
+            }
+        });
+    }
+
+    // Método para travar largura
+    private void definirLargura(TableColumn<?, ?> coluna, double largura) {
+        coluna.setPrefWidth(largura);
+        coluna.setMinWidth(largura);
+        coluna.setMaxWidth(largura);
 
     }
 
@@ -134,7 +159,7 @@ public class ViagemMainController implements ControladorFilho<CarroController> {
             return;
         }
 
-        System.out.println("Viagens carregadas: " + viagens.size());
+        viagens.forEach(v -> System.out.println("ID: " + v.getId() + " - Destino: " + v.getDestino().getNome()));
 
         ObservableList<Viagem> observableViagens = FXCollections.observableArrayList(viagens);
         tabelaViagem.setItems(observableViagens);
@@ -145,27 +170,4 @@ public class ViagemMainController implements ControladorFilho<CarroController> {
     private void abrirTelaCadastroViagem(ActionEvent event) {
         carroController.carregarTela("/view/LancarViagem.fxml");
     }
-
-
-//    @FXML
-//    public void carregarTela(String caminhoFXML) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
-//            AnchorPane novaTela = loader.load();
-//
-//            Object controller = loader.getController();
-//
-//            if (controller instanceof ControladorFilho<?>) {
-//                @SuppressWarnings("unchecked")
-//                ControladorFilho<ViagemMainController> filho = (ControladorFilho<ViagemMainController>) controller;
-//                filho.setControladorPai(this);
-//            }
-//
-//            conteudoPane.getChildren().setAll(novaTela);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
 }
