@@ -63,6 +63,9 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
     private TextField txtTipo;
 
     @FXML
+    private Button btnDelete;
+
+    @FXML
     void initialize() {
         assert btnUpImg != null : "fx:id=\"btnUpImg\" was not injected: check your FXML file 'EditarCarro.fxml'.";
         assert txtPlaca != null : "fx:id=\"txtPlaca\" was not injected: check your FXML file 'EditarCarro.fxml'.";
@@ -164,6 +167,10 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
             boolean sucesso = CarroDAO.atualizarCarro(carroAtualizado);
 
             if (sucesso) {
+                limparCampos();
+                if (carroController != null) {
+                    carroController.carregarTela("/view/Frota.fxml");
+                }
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Sucesso");
                 alert.setHeaderText(null);
@@ -184,8 +191,36 @@ public class EditarCarroController implements ControladorFilho<CarroController> 
             alert.setHeaderText("Valores inválidos");
             alert.setContentText("Certifique-se de preencher os campos numéricos corretamente.");
             alert.showAndWait();
+
+
         }
     }
+
+    @FXML
+    private void onRemoverCarro() {
+        String placa = txtPlaca.getText().toUpperCase().replaceAll("[^A-Z0-9]", "");
+
+        if (placa.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Remover Carro");
+            alert.setHeaderText(null);
+            alert.setContentText("O campo placa deve ser preenchido.");
+            alert.showAndWait();
+            return;
+        }
+
+        Carro carro = new Carro();
+        carro.setPlaca(placa);
+
+        boolean sucesso = CarroDAO.removerCarro(carro);
+
+        Alert alert = new Alert(sucesso ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
+        alert.setTitle(sucesso ? "Sucesso" : "Erro");
+        alert.setHeaderText(null);
+        alert.setContentText(sucesso ? "Carro removido com sucesso!" : "Ocorreu um problema ao remover o carro.");
+        alert.showAndWait();
+    }
+
 
     public void preencherCamposComPlaca(String placa) {
         Carro carro = CarroDAO.buscarCarro(placa); // Chama o DAO

@@ -133,7 +133,7 @@ public class IniciarViagemController implements ControladorFilho<CarroController
             viagem.setEmRota(true);
             ViagemDAO viagemDAO = new ViagemDAO();
 
-            boolean sucesso = viagemDAO.cadastrarViagem(viagem); // <- valida se cadastrou
+            boolean sucesso = viagemDAO.cadastrarViagem(viagem);
 
             if (sucesso) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -239,12 +239,4 @@ public class IniciarViagemController implements ControladorFilho<CarroController
             fieldCusto.setText("0.00");
         }
     }
-
-    @FXML
-    private void listarViagens() {}
-
-
-
-
-
 }

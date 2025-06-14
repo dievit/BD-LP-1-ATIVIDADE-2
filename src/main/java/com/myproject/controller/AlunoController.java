@@ -69,7 +69,7 @@ public class AlunoController {
         String matricula = txtMatricula.getText();
         String curso = txtCurso.getText();
 
-        if(nome.isEmpty() || matricula.isEmpty() || curso.isEmpty()) {
+        if (nome.isEmpty() || matricula.isEmpty() || curso.isEmpty()) {
             txtResultado.setText("Preencha todos os campos.");
             return;
         }
@@ -104,7 +104,7 @@ public class AlunoController {
             txtResultado.setText("Matrícula não encontrada.");
             return;
         }
-        if(matricula.isEmpty()) {
+        if (matricula.isEmpty()) {
             txtResultado.setText("Digite a matrícula do aluno poder desativá-lo.");
             return;
         }
@@ -282,7 +282,7 @@ public class AlunoController {
             return;
         }
 
-        if(nome.isEmpty() || matricula.isEmpty() || curso.isEmpty()) {
+        if (nome.isEmpty() || matricula.isEmpty() || curso.isEmpty()) {
             txtResultado.setText("Preencha todos os campos.");
             return;
         }

@@ -18,6 +18,17 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0.5, 0, 2);
     -fx-cursor: hand;
 }
+
+.buttonDelete {
+    -fx-background-color: #FF0000;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 50px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0.5, 0, 2);
+    -fx-cursor: hand;
+}}
 .menu-lateral {
     -fx-background-color: #FFA100; /* Laranja */
     -fx-padding: 10;

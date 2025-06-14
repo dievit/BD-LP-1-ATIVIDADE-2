@@ -1,16 +1,11 @@
 package com.myproject.controller;
 
-import java.net.URL;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
 
 import com.myproject.dao.MotoristaDAO;
 import com.myproject.model.Motorista;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class CrudMotoristaController implements ControladorFilho<CarroController> {
     private CarroController carroController;
@@ -28,12 +23,6 @@ public class CrudMotoristaController implements ControladorFilho<CarroController
             System.out.println("CarroController não está definido.");
         }
     }
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button btnUpImg;
@@ -86,6 +75,38 @@ public class CrudMotoristaController implements ControladorFilho<CarroController
         assert btnLimpar != null : "fx:id=\"btnLimpar\" was not injected: check your FXML file 'CrudMotorista.fxml'.";
         assert txtCnh != null : "fx:id=\"txtCnh\" was not injected: check your FXML file 'CrudMotorista.fxml'.";
 
+        aplicarMascaraTelefone(txtTelefone);
+        configurarMascaras();
+    }
+
+    private void configurarMascaras() {
+        txtCnh.setTextFormatter(new TextFormatter<>(change -> {
+            return (change.getControlNewText().length() <= 11 && change.getText().matches("\\d*")) ? change : null;
+        }));
+
+        txtTelefone.setTextFormatter(new TextFormatter<>(change -> {
+            return (change.getControlNewText().length() <= 11 && change.getText().matches("\\d*")) ? change : null;
+        }));
+    }
+
+    private void aplicarMascaraTelefone(TextField campo) {
+        campo.textProperty().addListener((obs, oldText, newText) -> {
+            String digits = newText.replaceAll("[^\\d]", ""); // Remove tudo que não é número
+
+            if (digits.length() > 11) {
+                digits = digits.substring(0, 11); // Limita a 11 dígitos
+            }
+
+            StringBuilder formatted = new StringBuilder();
+            int len = digits.length();
+
+            if (len >= 1) formatted.append("(").append(digits.substring(0, Math.min(2, len)));
+            if (len >= 3) formatted.append(") ").append(digits.substring(2, Math.min(7, len)));
+            if (len >= 8) formatted.append("-").append(digits.substring(7));
+
+            campo.setText(formatted.toString());
+            campo.positionCaret(formatted.length()); // Mantém o cursor no final
+        });
     }
 
     @FXML
@@ -122,7 +143,16 @@ public class CrudMotoristaController implements ControladorFilho<CarroController
         try {
             Motorista motorista = new Motorista(nome, cnh, validade, categoriaCnh, rua, numero, cidade, telefone, email);
             MotoristaDAO motoristaDAO = new MotoristaDAO();
+            boolean sucesso = motoristaDAO.cadastrarMotorista(motorista);
             motoristaDAO.cadastrarMotorista(motorista);
+
+            if (sucesso) {
+                limparCampos();
+                if (carroController != null) {
+                    carroController.carregarTela("/view/MainMotoristas.fxml");
+                }
+            }
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Cadastro");
             alert.setHeaderText(null);
@@ -138,6 +168,6 @@ public class CrudMotoristaController implements ControladorFilho<CarroController
             System.err.println("Erro ao cadastrar motorista: " + e.getMessage());
         }
 
-        limparCampos();
+
     }
 }

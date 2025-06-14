@@ -22,11 +22,12 @@
       <TextField fx:id="txtConsumo" layoutX="139.0" layoutY="268.0" prefHeight="50.0" prefWidth="400.0" promptText="Consumo" styleClass="txt-field" stylesheets="@css/estilo.css" />
       <TextField fx:id="txtTanque" layoutX="139.0" layoutY="329.0" prefHeight="50.0" prefWidth="400.0" promptText="Capacidade do Tanque" styleClass="txt-field" stylesheets="@css/estilo.css" />
       <TextField fx:id="txtTipo" layoutX="549.0" layoutY="268.0" prefHeight="50.0" prefWidth="400.0" promptText="Tipo" styleClass="txt-field" stylesheets="@css/estilo.css" />
-      <Button fx:id="btnUpImg" layoutX="138.0" layoutY="390.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Adicionar imagem" />
+      <Button fx:id="btnUpImg" layoutX="549.0" layoutY="329.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Adicionar imagem" />
       <ImageView fitHeight="205.0" fitWidth="200.0" layoutX="626.0" layoutY="329.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="btnLimpar" layoutX="626.0" layoutY="551.0" mnemonicParsing="false" onAction="#limparCampos" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Limpar" />
       <Button fx:id="btnCadastrar" layoutX="238.0" layoutY="551.0" mnemonicParsing="false" onAction="#onEditarCarro" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Confirmar" />
       <Button fx:id="btnVoltar" layoutX="24.0" layoutY="39.0" mnemonicParsing="false" onAction="#voltar" styleClass="button2" stylesheets="@css/estilo.css" text="Voltar" />
-      <Button fx:id="btnBuscar" layoutX="138.0" layoutY="451.0" mnemonicParsing="false" onAction="#onBuscarCarro" prefHeight="50.0" prefWidth="200.0" styleClass="button2" stylesheets="@css/estilo.css" text="Buscar" />
+      <Button fx:id="btnBuscar" layoutX="138.0" layoutY="390.0" mnemonicParsing="false" onAction="#onBuscarCarro" prefHeight="50.0" prefWidth="190.0" styleClass="button2" stylesheets="@css/estilo.css" text="Buscar" />
+      <Button fx:id="btnDeletar" layoutX="349.0" layoutY="390.0" mnemonicParsing="false" onAction="#onRemoverCarro" prefHeight="50.0" prefWidth="190.0" styleClass="buttonDelete" stylesheets="@css/estilo.css" text="Deletar" />
    </children>
 </AnchorPane>

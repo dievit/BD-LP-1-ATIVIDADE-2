@@ -14,8 +14,8 @@ public class CarroDAO {
 
     private Connection connection;
 
-    public CarroDAO() {
-        this.connection = connection;
+    public CarroDAO() throws SQLException {
+        this.connection = ConexaoDB.getConnection();
     }
 
     public static boolean viagemAutorizada(Carro carro) {
@@ -70,10 +70,10 @@ public class CarroDAO {
     }
 
     //inicio metodos CRUD
-    public void cadastrarCarro(Carro carro) {
+    public boolean cadastrarCarro(Carro carro) {
         if (CarroDAO.placaExiste(carro.getPlaca())) {
             System.out.println("Placa já cadastrada");
-            return;
+            return false;
         }
 
         String sql = "INSERT INTO carro (modelo, marca, placa, km_rodado, consumo, capacidade, nivel_combustivel, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -95,33 +95,33 @@ public class CarroDAO {
             System.err.println("Erro ao cadastrar veículo: " + e.getMessage());
             e.printStackTrace();
         }
+        return false;
     }
 
-    public void removerCarro(Carro carro) {
-        String sql = "UPDATE carro SET removido = 1 WHERE placa = ?";
+    public static boolean removerCarro(Carro carro) {
+        System.out.println("Tentando remover carro com placa: " + carro.getPlaca());
 
         if (!placaExiste(carro.getPlaca())) {
-            System.out.println("Placa não encontrada.");
-            return;
+            System.out.println("Placa não encontrada no banco.");
+            return false;
         }
+
+        String sql = "UPDATE carro SET removido = 1 WHERE placa = ?";
+
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, carro.getPlaca());
-            stmt.executeUpdate();
-
-            System.out.println("Veículo removido com sucesso!");
             int affectedRows = stmt.executeUpdate();
 
+            System.out.println("Linhas afetadas: " + affectedRows);
 
-            if (affectedRows > 0) {
-                System.out.println("Veículo removido com sucesso!");
-            } else {
-                System.out.println("Nenhum veículo encontrado com a placa: " + carro.getPlaca());
-            }
+            return affectedRows > 0;
+
         } catch (SQLException e) {
             System.err.println("Erro ao remover veículo: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -222,60 +222,5 @@ public class CarroDAO {
         return carrosDisponiveis;
     }
 
-    public List<Carro> listarCarrosIndisponiveis() {
-        List<Carro> carrosIndisponiveis = new ArrayList<>();
-        String sql = "SELECT * FROM carro WHERE disponivel = 1";
-
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Carro carro = new Carro();
-
-                carro.setModelo(rs.getString("modelo"));
-                carro.setMarca(rs.getString("marca"));
-                carro.setPlaca(rs.getString("placa"));
-                carro.setKmRodado(rs.getInt("km_rodado"));
-                carro.setConsumo(rs.getDouble("consumo"));
-                carro.setCapacidadeTanque(rs.getInt("capacidade"));
-                carro.setNivelCombustivel(rs.getInt("nivel_combustivel"));
-                carro.setImage(rs.getString("image"));
-
-                carrosIndisponiveis.add(carro);
-            }
-        } catch (SQLException e) {
-            System.err.println("Erro ao listar veículos indisponíveis: " + e.getMessage());
-        }
-        return carrosIndisponiveis;
-    }
-
-    public List<Carro> listarRemovidos() {
-        List<Carro> carrosRemovidos = new ArrayList<>();
-        String sql = "SELECT * FROM carro WHERE removido = 1";
-
-        try (Connection conn = ConexaoDB.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Carro carro = new Carro();
-                carro.setModelo(rs.getString("modelo"));
-                carro.setMarca(rs.getString("marca"));
-                carro.setPlaca(rs.getString("placa"));
-                carro.setKmRodado(rs.getInt("km_rodado"));
-                carro.setConsumo(rs.getDouble("consumo"));
-                carro.setCapacidadeTanque(rs.getInt("capacidade"));
-                carro.setNivelCombustivel(rs.getInt("nivel_combustivel"));
-                carro.setImage(rs.getString("image"));
-
-                carrosRemovidos.add(carro);
-            }
-        } catch (SQLException e) {
-            System.err.println("Erro ao listar veículos removidos: " + e.getMessage());
-        }
-        return carrosRemovidos;
-    }
-    //fim dos metodos para listagem de carros
 }
 

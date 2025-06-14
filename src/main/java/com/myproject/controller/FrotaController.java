@@ -21,7 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class FrotaController {
+public class FrotaController implements ControladorFilho<CarroController> {
     private CarroController carroController;
 
     public void setControladorPai(CarroController carroController) {
@@ -41,12 +41,6 @@ public class FrotaController {
     void abrirEditarCarro() {
         carroController.carregarTela("/view/EditarCarro.fxml");
     }
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private AnchorPane conteudoPane;
@@ -76,9 +70,6 @@ public class FrotaController {
     private Button btnFrotaManutencao;
 
     @FXML
-    private Button btnLimpar;
-
-    @FXML
     private TableView<Carro> tabelaFrota;
 
     @FXML
@@ -98,7 +89,6 @@ public class FrotaController {
             });
             return row;
         });
-
 
         assert btnFrotaDisponiveis != null : "fx:id=\"btnFrotaDisponiveis\" was not injected: check your FXML file 'Frota.fxml'.";
         assert btnFrotaEmRota != null : "fx:id=\"btnFrotaEmRota\" was not injected: check your FXML file 'Frota.fxml'.";
@@ -130,29 +120,6 @@ public class FrotaController {
             tabelaFrota.setItems(observableCarros);
 
         });
-    }
-
-    public void carregarTela(String caminhoFXML) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
-            AnchorPane novaTela = loader.load();
-
-            Object controller = loader.getController();
-
-            if (controller instanceof ControladorFilho<?>) {
-                @SuppressWarnings("unchecked")
-                ControladorFilho<FrotaController> filho = (ControladorFilho<FrotaController>) controller;
-                filho.setControladorPai(this);
-            }
-
-            conteudoPane.getChildren().setAll(novaTela);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    void limparCampos() {
-        tabelaFrota.getItems().clear();
     }
 
     private void abrirTelaEdicao(Carro carro) {

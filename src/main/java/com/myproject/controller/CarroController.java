@@ -3,27 +3,11 @@ package com.myproject.controller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 
 public class CarroController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private SplitPane splitPane;
-
-    @FXML
-    private AnchorPane menuPane;
 
     @FXML
     private AnchorPane conteudoPane;
@@ -76,11 +60,5 @@ public class CarroController {
     private void fecharAplicacao() {
         Platform.exit();
     }
-
-    @FXML
-    void initialize() {
-
-    }
-
 
 }

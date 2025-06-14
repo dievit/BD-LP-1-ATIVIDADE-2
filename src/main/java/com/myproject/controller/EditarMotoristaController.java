@@ -7,31 +7,22 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import com.myproject.dao.MotoristaDAO;
+import javafx.scene.control.TextFormatter;
 
-import java.net.URL;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
 
 public class EditarMotoristaController implements ControladorFilho<CarroController> {
     private CarroController carroController;
+    private Motorista motorista;
+    private MainMotoristasController mainMotoristasController;
 
     @Override
     public void setControladorPai(CarroController controller) {
         this.carroController = controller;
     }
 
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
     @FXML
     private TextField txtCategoriaCnh;
-
-    @FXML
-    private TextField txtValidade;
 
     @FXML
     private Button btnCadastrar;
@@ -61,6 +52,9 @@ public class EditarMotoristaController implements ControladorFilho<CarroControll
     private Button btnVoltar;
 
     @FXML
+    private Button btnDeletar;
+
+    @FXML
     private TextField txtCidade;
 
     @FXML
@@ -73,7 +67,6 @@ public class EditarMotoristaController implements ControladorFilho<CarroControll
 
     @FXML
     private javafx.scene.control.DatePicker dpValidade;
-
 
     @FXML
     private Button btnBuscar;
@@ -102,7 +95,41 @@ public class EditarMotoristaController implements ControladorFilho<CarroControll
         assert btnLimpar != null : "fx:id=\"btnLimpar\" was not injected: check your FXML file 'EditarMotorista.fxml'.";
         assert btnBuscar != null : "fx:id=\"btnBuscar\" was not injected: check your FXML file 'EditarMotorista.fxml'.";
 
+        configurarMascaras();
+        aplicarMascaraTelefone(txtTelefone);
     }
+
+    private void configurarMascaras() {
+        txtCnh.setTextFormatter(new TextFormatter<>(change -> {
+            return (change.getControlNewText().length() <= 11 && change.getText().matches("\\d*")) ? change : null;
+        }));
+
+        txtTelefone.setTextFormatter(new TextFormatter<>(change -> {
+            return (change.getControlNewText().length() <= 11 && change.getText().matches("\\d*")) ? change : null;
+        }));
+    }
+
+    private void aplicarMascaraTelefone(TextField campo) {
+        campo.textProperty().addListener((obs, oldText, newText) -> {
+            String digits = newText.replaceAll("[^\\d]", ""); // Remove tudo que não é número
+
+            if (digits.length() > 11) {
+                digits = digits.substring(0, 11); // Limita a 11 dígitos
+            }
+
+            StringBuilder formatted = new StringBuilder();
+            int len = digits.length();
+
+            if (len >= 1) formatted.append("(").append(digits.substring(0, Math.min(2, len)));
+            if (len >= 3) formatted.append(") ").append(digits.substring(2, Math.min(7, len)));
+            if (len >= 8) formatted.append("-").append(digits.substring(7));
+
+            campo.setText(formatted.toString());
+            campo.positionCaret(formatted.length()); // Mantém o cursor no final
+        });
+    }
+
+
 
     @FXML
     private void limparCampos() {
@@ -116,6 +143,45 @@ public class EditarMotoristaController implements ControladorFilho<CarroControll
         txtNum.clear();
         txtCidade.clear();
     }
+
+    @FXML
+    private void onRemoverMotorista() {
+        String cnh = txtCnh.getText();
+
+        if (cnh == null || cnh.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aviso");
+            alert.setHeaderText(null);
+            alert.setContentText("A CNH está vazia. Não é possível remover o motorista.");
+            alert.showAndWait();
+            return;
+        }
+
+        Motorista motoristaBuscado = MotoristaDAO.buscarMotoristaPorCNH(cnh);
+
+        if (motoristaBuscado == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText(null);
+            alert.setContentText("Nenhum motorista encontrado com a CNH informada.");
+            alert.showAndWait();
+            return;
+        }
+
+        MotoristaDAO dao = new MotoristaDAO();
+        boolean sucesso = dao.removerMotorista(motoristaBuscado);
+
+        Alert alert = new Alert(sucesso ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
+        alert.setTitle(sucesso ? "Remoção concluída" : "Erro ao remover");
+        alert.setHeaderText(null);
+        alert.setContentText(sucesso ? "Motorista removido com sucesso!" : "Não foi possível remover o motorista.");
+        alert.showAndWait();
+
+        if (sucesso) {
+            limparCampos();
+        }
+    }
+
 
     @FXML
     private void onBuscarMotorista() {

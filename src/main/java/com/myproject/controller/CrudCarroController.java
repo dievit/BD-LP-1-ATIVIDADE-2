@@ -1,14 +1,12 @@
 package com.myproject.controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import com.myproject.dao.CarroDAO;
 import com.myproject.model.Carro;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 
 public class CrudCarroController implements ControladorFilho<CarroController> {
     private CarroController carroController;
@@ -24,13 +22,6 @@ public class CrudCarroController implements ControladorFilho<CarroController> {
             carroController.carregarTela("/view/Frota.fxml");
         }
     }
-
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button btnUpImg;
@@ -62,8 +53,6 @@ public class CrudCarroController implements ControladorFilho<CarroController> {
     @FXML
     private Button btnLimpar;
 
-    @FXML
-    private Button btnVoltar;
 
     @FXML
     void initialize() {
@@ -78,6 +67,18 @@ public class CrudCarroController implements ControladorFilho<CarroController> {
         assert btnSubmit != null : "fx:id=\"btnSubmit\" was not injected: check your FXML file 'CrudCarro.fxml'.";
         assert btnLimpar != null : "fx:id=\"btnLimpar\" was not injected: check your FXML file 'CrudCarro.fxml'.";
 
+        configurarMascaras();
+    }
+
+    private void configurarMascaras() {
+        txtPlaca.setTextFormatter(new TextFormatter<>(change -> {
+            String novoTexto = change.getControlNewText().toUpperCase();
+            if (novoTexto.length() <= 7 && novoTexto.matches("[A-Z0-9]*")) {
+                change.setText(change.getText().toUpperCase());
+                return change;
+            }
+            return null;
+        }));
     }
 
     @FXML
@@ -105,9 +106,18 @@ public class CrudCarroController implements ControladorFilho<CarroController> {
             System.out.println("Todos os campos devem ser preenchidos.");
             return;
         }
+        if (!placa.matches("^[A-Z]{3}[0-9]{4}$")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Placa inválida");
+            alert.setHeaderText(null);
+            alert.setContentText("A placa deve estar no formato AAA1234, sem traços ou espaços.");
+            alert.showAndWait();
+            return;
+        }
         try {
             Carro carro = new Carro(modelo, marca, placa, tipo, (int) kmRodado, (double) consumo, (int) capacidadeTanque);
             CarroDAO carroDAO = new CarroDAO();
+            boolean sucesso = carroDAO.cadastrarCarro(carro);
             carroDAO.cadastrarCarro(carro);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Cadastro");
@@ -116,6 +126,13 @@ public class CrudCarroController implements ControladorFilho<CarroController> {
             alert.showAndWait();
 
             System.out.println("Veículo cadastrado com sucesso!");
+
+            if (sucesso) {
+                limparCampos();
+                if (carroController != null) {
+                    carroController.carregarTela("/view/MainMotoristas.fxml");
+                }
+            }
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");

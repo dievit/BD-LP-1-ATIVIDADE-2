@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MotoristaDAO {
+    private static Motorista motorista;
 
     public static boolean cnhExiste(String cnh) {
-        String sql = "SELECT COUNT(*) FROM motorista WHERE cnh = ?";
+        String sql = "SELECT COUNT(*) FROM motorista WHERE cnh = ? AND removido = 0";
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -28,9 +29,9 @@ public class MotoristaDAO {
     }
 
     public static boolean cnhValida(String cnh) {
-        String sql = "COUNT(*) FROM motorista WHERE cnh = ? AND validade_cnh >= CURRENT_DATE";
+        String sql = "SELECT validade_cnh FROM motorista WHERE cnh = ? AND validade_cnh >= CURRENT_DATE";
 
-        try(Connection conn = ConexaoDB.getConnection();
+        try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, cnh);
@@ -48,6 +49,11 @@ public class MotoristaDAO {
     }
 
     public static Motorista buscarMotoristaPorId(int motoristaId) {
+        if (!cnhExiste(motorista.getCnh())) {
+            System.out.println("CNH não encontrada");
+            return null;
+        }
+
         String sql = "SELECT * FROM motorista WHERE id = ? AND removido = 0";
         Motorista motorista = null;
 
@@ -79,10 +85,10 @@ public class MotoristaDAO {
 
     //inicio metodos CRUD
 
-    public void cadastrarMotorista(Motorista motorista) {
+    public boolean cadastrarMotorista(Motorista motorista) {
         if (MotoristaDAO.cnhExiste(motorista.getCnh())) {
             System.out.println("CNH já cadastrada");
-            return;
+            return false;
         }
 
         String sql = "INSERT INTO motorista (nome, cnh, validade_cnh, categoria_cnh, end_rua, end_numero, end_cidade, telefone, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -104,25 +110,25 @@ public class MotoristaDAO {
         } catch (SQLException e) {
             System.err.println("Erro ao cadastrar motorista: " + e.getMessage());
         }
+        return false;
     }
 
-    public void removerMotorista(Motorista motorista) {
-        String sql = "UPDATE motorista SET removido = 1 WHERE cnh = ?";
-
-        if(!MotoristaDAO.cnhExiste(motorista.getCnh())) {
-            System.out.println("CNH não encontrada");
-            return;
+    public boolean removerMotorista(Motorista motorista) {
+        if (!cnhExiste(motorista.getCnh())) {
+            return false;
         }
+
+        String sql = "UPDATE motorista SET removido = 1 WHERE cnh = ?";
 
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, motorista.getCnh());
-            stmt.executeUpdate();
 
             int affectedRows = stmt.executeUpdate();
             if (affectedRows > 0) {
                 System.out.println("Motorista removido com sucesso!");
+                return true; // <- aqui está a correção
             } else {
                 System.out.println("Nenhum motorista encontrado com a CNH informada.");
             }
@@ -130,7 +136,10 @@ public class MotoristaDAO {
             System.err.println("Erro ao remover motorista: " + e.getMessage());
             e.printStackTrace();
         }
+
+        return false;
     }
+
 
     public static Motorista buscarMotoristaPorCNH(String cnh) {
         String sql = "SELECT * FROM motorista WHERE cnh = ? AND removido = 0";
@@ -151,7 +160,7 @@ public class MotoristaDAO {
                         rs.getString("categoria_cnh"),
                         rs.getString("end_rua"),
                         rs.getString("end_numero"),
-                        rs.getString("end_Cidade"),
+                        rs.getString("end_cidade"),
                         rs.getString("telefone"),
                         rs.getString("email")
                 );

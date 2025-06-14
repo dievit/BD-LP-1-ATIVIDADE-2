@@ -117,34 +117,19 @@ public class MainMotoristasController implements ControladorFilho<CarroControlle
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colStatusCNH.setCellValueFactory(new PropertyValueFactory<>("statusCNH"));
 
-        btnMotoristas.setOnAction(event -> {
+        btnMotoristas.setOnAction(event -> carregarListaMotoristas());
 
-            List<Motorista> motoristasDisponiveis = MotoristaDAO.listarMotoristas();
-            System.out.println("Motoristas disponíveis: " + motoristasDisponiveis.size());
-            motoristasDisponiveis.forEach(c -> System.out.println(c.getNome() + " - " + c.getDisponibilidade()));
-
-            ObservableList<Motorista> observableMotoristas = FXCollections.observableArrayList(motoristasDisponiveis);
-            tabelaMotoristas.setItems(observableMotoristas);
-        });
     }
 
-    public void carregarTela(String caminhoFXML) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(caminhoFXML));
-            AnchorPane novaTela = loader.load();
+    public void carregarListaMotoristas() {
+        List<Motorista> motoristasDisponiveis = MotoristaDAO.listarMotoristas();
+        System.out.println("Motoristas disponíveis: " + motoristasDisponiveis.size());
+        motoristasDisponiveis.forEach(c -> System.out.println(c.getNome() + " - " + c.getDisponibilidade()));
 
-            Object controller = loader.getController();
-
-            if (controller instanceof ControladorFilho<?>) {
-                ControladorFilho<MainMotoristasController> filho = (ControladorFilho<MainMotoristasController>) controller;
-                filho.setControladorPai(this);
-            }
-
-            conteudoPane.getChildren().setAll(novaTela);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ObservableList<Motorista> observableMotoristas = FXCollections.observableArrayList(motoristasDisponiveis);
+        tabelaMotoristas.setItems(observableMotoristas);
     }
+
 
     private void abrirTelaEdicao(Motorista motorista) {
         try {
