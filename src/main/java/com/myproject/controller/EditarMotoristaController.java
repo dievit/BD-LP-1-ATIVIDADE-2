@@ -213,12 +213,14 @@ public class EditarMotoristaController implements ControladorFilho<CarroControll
         if (motorista != null) {
             txtNome.setText(motorista.getNome());
             txtCnh.setText(motorista.getCnh());
+            System.out.println(motorista.getCnh());
             dpValidade.setValue(motorista.getValidadeCNH());
             txtCategoriaCnh.setText(motorista.getCategoriaCNH());
             txtRua.setText(motorista.getEndRua());
             txtNum.setText(motorista.getEndNumero());
             txtCidade.setText(motorista.getEndCidade());
             txtTelefone.setText(motorista.getTelefone());
+            System.out.println(motorista.getTelefone());
             txtEmail.setText(motorista.getEmail());
         }
     }
@@ -236,6 +238,11 @@ public class EditarMotoristaController implements ControladorFilho<CarroControll
         String email = txtEmail.getText();
 
         if (nome.isEmpty() || cnh.isEmpty() || validade == null || categoriaCNH.isEmpty() || endRua.isEmpty() || endNumero.isEmpty() || endCidade.isEmpty() || telefone.isEmpty() || email.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Aviso");
+            alert.setHeaderText(null);
+            alert.setContentText("Todos os campos devem ser preenchidos.");
             System.out.println("Todos os campos devem ser preenchidos.");
             return;
         }
@@ -258,9 +265,9 @@ public class EditarMotoristaController implements ControladorFilho<CarroControll
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Erro");
                 alert.setHeaderText("Erro ao atualizar");
-                alert.setContentText("Ocorreu um problema ao atualizar os dados do carro.");
+                alert.setContentText("Ocorreu um problema ao atualizar os dados do motorista.");
                 alert.showAndWait();
-                System.out.println("Erro ao atualizar o carro.");
+                System.out.println("Erro ao atualizar o motorista.");
             }
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

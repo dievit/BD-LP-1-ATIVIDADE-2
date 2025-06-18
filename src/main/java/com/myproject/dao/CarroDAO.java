@@ -195,7 +195,7 @@ public class CarroDAO {
     //inicio metodos para listagem de carros
     public static List<Carro> listarCarrosDisponiveis() {
         List<Carro> carrosDisponiveis = new ArrayList<>();
-        String sql = "SELECT * FROM carro WHERE disponibilidade = 0";
+        String sql = "SELECT * FROM carro WHERE disponibilidade = 0 AND removido = 0";
 
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
