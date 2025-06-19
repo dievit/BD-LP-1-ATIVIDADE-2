@@ -49,11 +49,6 @@ public class MotoristaDAO {
     }
 
     public static Motorista buscarMotoristaPorId(int motoristaId) {
-        if (!cnhExiste(motorista.getCnh())) {
-            System.out.println("CNH não encontrada");
-            return null;
-        }
-
         String sql = "SELECT * FROM motorista WHERE id = ? AND removido = 0";
         Motorista motorista = null;
 
@@ -77,9 +72,11 @@ public class MotoristaDAO {
                         rs.getString("email")
                 );
             }
+
         } catch (SQLException e) {
             System.err.println("Erro ao buscar motorista por ID: " + e.getMessage());
         }
+
         return motorista;
     }
 

@@ -76,7 +76,7 @@ public class CarroDAO {
             return false;
         }
 
-        String sql = "INSERT INTO carro (modelo, marca, placa, km_rodado, consumo, capacidade, nivel_combustivel, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO carro (modelo, marca, placa, km_rodado, consumo, capacidade, tipo, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = ConexaoDB.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -87,7 +87,7 @@ public class CarroDAO {
             stmt.setInt(4, carro.getKmRodado());
             stmt.setDouble(5, carro.getConsumo());
             stmt.setInt(6, carro.getCapacidadeTanque());
-            stmt.setInt(7, carro.getNivelCombustivel());
+            stmt.setString(7, carro.getTipo());
             stmt.setString(8, carro.getImage());
             stmt.executeUpdate();
             System.out.println("Veículo cadastrado com sucesso!");
