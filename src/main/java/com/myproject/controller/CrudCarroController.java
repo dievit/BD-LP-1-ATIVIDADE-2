@@ -106,7 +106,7 @@ public class CrudCarroController implements ControladorFilho<CarroController> {
             System.out.println("Todos os campos devem ser preenchidos.");
             return;
         }
-        if (!placa.matches("^[A-Z]{3}[0-9]{4}$")) {
+        if (!placa.matches("^[A-Z]{3}[0-9][A-F][0-9]{2}$")) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Placa inválida");
             alert.setHeaderText(null);
